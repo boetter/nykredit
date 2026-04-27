@@ -7,8 +7,30 @@
 <meta name="description" content="80 prompts til daglig brug for rådgivere, ledere, specialister, IT-folk og investeringsfolk i Nykredit. Bygget af Jacob Bøtter.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Nykredit Sans';
+  src: url('NykreditSans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nykredit Sans';
+  src: url('NykreditSans-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nykredit Sans';
+  src: url('NykreditSans-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #F6F4F3;
   --surface: #FFFFFF;
@@ -25,8 +47,8 @@
   --border: rgba(7,9,74,0.14);
   --border-light: rgba(7,9,74,0.07);
 
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-serif: 'Nykredit Sans', system-ui, sans-serif;
+  --font-sans: 'Nykredit Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
 
   --radius-sm: 4px;
@@ -59,7 +81,7 @@ body {
 .hero {
   background: var(--navy);
   color: var(--white);
-  padding: 96px 24px 80px;
+  padding: 36px 24px 32px;
   position: relative;
   overflow: hidden;
 }
@@ -80,9 +102,18 @@ body {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
 }
 .hero-inner {
-  max-width: 760px;
+  max-width: 1280px;
   margin: 0 auto;
   position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.hero-text {
+  flex: 1;
+  min-width: 260px;
 }
 .hero-eyebrow {
   font-family: var(--font-mono);
@@ -90,7 +121,7 @@ body {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 36px;
+  margin-bottom: 14px;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -105,53 +136,47 @@ body {
 }
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(56px, 11vw, 112px);
-  font-weight: 400;
-  line-height: 0.92;
-  letter-spacing: -0.035em;
-  margin-bottom: 28px;
-  font-variation-settings: "opsz" 144;
+  font-size: clamp(32px, 4.6vw, 48px);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
   color: var(--white);
 }
 .hero-title em {
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 700;
   color: var(--yellow);
-  font-variation-settings: "opsz" 144;
 }
 .hero-subtitle {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
   color: rgba(255,255,255,0.78);
-  margin-bottom: 56px;
-  max-width: 520px;
-  line-height: 1.55;
+  margin-bottom: 0;
+  max-width: 560px;
+  line-height: 1.5;
   letter-spacing: -0.005em;
 }
 .hero-meta {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 48px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(255,255,255,0.14);
-  width: fit-content;
+  display: flex;
+  gap: 32px;
+  flex-shrink: 0;
 }
 .hero-meta div {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   color: rgba(255,255,255,0.52);
   text-transform: uppercase;
 }
 .hero-meta strong {
   color: var(--white);
-  font-weight: 400;
+  font-weight: 700;
   display: block;
-  font-size: 32px;
+  font-size: 22px;
   font-family: var(--font-serif);
   letter-spacing: -0.02em;
-  margin-bottom: 4px;
-  font-variation-settings: "opsz" 48;
+  margin-bottom: 2px;
 }
 
 /* ============ STICKY FILTER BAR ============ */
@@ -166,7 +191,7 @@ body {
   padding: 18px 24px 16px;
 }
 .filter-inner {
-  max-width: 760px;
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -314,22 +339,24 @@ body {
 
 /* ============ PROMPTS ============ */
 .prompts {
-  max-width: 760px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 56px 24px 96px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  padding: 32px 24px 96px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  align-items: start;
 }
 
 .card {
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 28px 32px 24px;
+  padding: 20px 22px 18px;
   position: relative;
   border: 1px solid var(--border-light);
   transition: border-color 0.18s, box-shadow 0.18s;
   overflow: hidden;
+  cursor: pointer;
 }
 .card:hover {
   border-color: var(--border);
@@ -351,12 +378,12 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 .card-meta {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.1em;
   color: var(--navy-muted);
   text-transform: uppercase;
@@ -378,23 +405,31 @@ body {
 .card[data-type="QUICK"] .type-badge {
   background: var(--teal);
 }
-.id-tag {
-  color: var(--navy);
-  font-weight: 500;
-}
 .cat-tag {
   color: var(--navy-muted);
 }
 
 .card-title {
   font-family: var(--font-serif);
-  font-size: 23px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 700;
   line-height: 1.28;
   letter-spacing: -0.012em;
   color: var(--navy);
-  margin-bottom: 18px;
-  font-variation-settings: "opsz" 32;
+  margin-bottom: 10px;
+}
+
+.card-preview {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--navy-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+  letter-spacing: -0.003em;
 }
 
 .prompt-text {
@@ -404,14 +439,15 @@ body {
   background: rgba(7,9,74,0.025);
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 16px 18px;
   color: var(--navy);
   white-space: pre-wrap;
   word-break: break-word;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   max-height: 420px;
   overflow-y: auto;
   letter-spacing: -0.003em;
+  display: none;
 }
 .prompt-text::-webkit-scrollbar { width: 6px; }
 .prompt-text::-webkit-scrollbar-track { background: transparent; }
@@ -420,18 +456,48 @@ body {
 
 .card[data-type="QUICK"] .prompt-text {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 14.5px;
   background: rgba(103,210,223,0.06);
   border-color: rgba(103,210,223,0.20);
   letter-spacing: -0.005em;
   font-weight: 400;
 }
 
+.card.expanded .card-preview { display: none; }
+.card.expanded .prompt-text { display: block; }
+.card.expanded .copy-btn { display: inline-flex; }
+
 .card-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
+.copy-btn { display: none; }
+
+.fold-toggle {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.fold-toggle::before {
+  content: '+';
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+}
+.card.expanded .fold-toggle::before { content: '−'; }
+.card.expanded .fold-toggle .label-collapsed { display: none; }
+.card:not(.expanded) .fold-toggle .label-expanded { display: none; }
+.card:not(.expanded) .fold-toggle { margin-left: auto; }
 .copy-btn {
   font-family: var(--font-sans);
   font-size: 13px;
@@ -473,10 +539,10 @@ body {
 .empty-title {
   font-family: var(--font-serif);
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--navy);
   margin-bottom: 8px;
-  font-style: italic;
+  letter-spacing: -0.01em;
 }
 .empty-text {
   font-size: 14px;
@@ -555,43 +621,49 @@ body {
 }
 .footer-note {
   font-family: var(--font-serif);
-  font-style: italic;
   font-size: 14px;
+  font-weight: 500;
   color: var(--navy-muted);
   margin-bottom: 20px;
-  font-variation-settings: "opsz" 14;
+  letter-spacing: -0.005em;
 }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 720px) {
   .hero {
-    padding: 64px 20px 56px;
+    padding: 28px 20px 24px;
+  }
+  .hero-inner {
+    gap: 20px;
   }
   .hero-eyebrow {
-    margin-bottom: 28px;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-size: 30px;
   }
   .hero-subtitle {
-    font-size: 16px;
-    margin-bottom: 40px;
+    font-size: 14px;
   }
   .hero-meta {
-    gap: 28px;
+    gap: 22px;
   }
   .hero-meta strong {
-    font-size: 26px;
+    font-size: 18px;
   }
   .filter-bar {
     padding: 14px 16px 12px;
   }
   .prompts {
-    padding: 40px 16px 64px;
-    gap: 14px;
+    padding: 24px 16px 64px;
+    gap: 12px;
+    grid-template-columns: 1fr;
   }
   .card {
-    padding: 22px 22px 20px;
+    padding: 18px 18px 16px;
   }
   .card-title {
-    font-size: 20px;
+    font-size: 16px;
   }
   .prompt-text {
     font-size: 12.5px;
@@ -608,9 +680,11 @@ body {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Nykredit · AI · Forår 2026</div>
-    <h1 class="hero-title">Prompt-<br><em>bibliotek</em></h1>
-    <p class="hero-subtitle">80 prompts til daglig brug for rådgivere, ledere, specialister, IT-folk og investeringsfolk i Nykredit.</p>
+    <div class="hero-text">
+      <div class="hero-eyebrow">Nykredit · AI · Forår 2026</div>
+      <h1 class="hero-title">Prompt-<em>bibliotek</em></h1>
+      <p class="hero-subtitle">80 prompts til daglig brug for rådgivere, ledere, specialister, IT-folk og investeringsfolk i Nykredit.</p>
+    </div>
     <div class="hero-meta">
       <div><strong>80</strong>prompts</div>
       <div><strong>9</strong>kategorier</div>
@@ -1544,11 +1618,9 @@ const els = {
 
 // Render category filter pills
 function renderCategoryFilters() {
-  const allCount = PROMPTS.length;
-  let html = `<button class="pill active" data-cat="all">Alle <span class="count">${allCount}</span></button>`;
+  let html = `<button class="pill active" data-cat="all">Alle <span class="count">0</span></button>`;
   CATEGORIES.forEach(c => {
-    const count = PROMPTS.filter(p => p.cat === c).length;
-    html += `<button class="pill" data-cat="${c}">${c} <span class="count">${count}</span></button>`;
+    html += `<button class="pill" data-cat="${c}">${c} <span class="count">0</span></button>`;
   });
   els.catFilters.innerHTML = html;
 
@@ -1559,6 +1631,33 @@ function renderCategoryFilters() {
       btn.classList.add('active');
       render();
     });
+  });
+}
+
+// Update counts on filter pills based on the OTHER active filter
+function updateCounts() {
+  // Type pills reflect counts within the active category
+  els.typeFilters.querySelectorAll('.pill').forEach(btn => {
+    const t = btn.dataset.type;
+    const count = PROMPTS.filter(p => {
+      if (activeCategory !== 'all' && p.cat !== activeCategory) return false;
+      if (t !== 'all' && p.type !== t) return false;
+      return true;
+    }).length;
+    const countEl = btn.querySelector('.count');
+    if (countEl) countEl.textContent = count;
+  });
+
+  // Category pills reflect counts within the active type
+  els.catFilters.querySelectorAll('.pill').forEach(btn => {
+    const c = btn.dataset.cat;
+    const count = PROMPTS.filter(p => {
+      if (activeType !== 'all' && p.type !== activeType) return false;
+      if (c !== 'all' && p.cat !== c) return false;
+      return true;
+    }).length;
+    const countEl = btn.querySelector('.count');
+    if (countEl) countEl.textContent = count;
   });
 }
 
@@ -1616,6 +1715,7 @@ function highlight(text, query) {
 
 // Render prompts
 function render() {
+  updateCounts();
   const filtered = filterPrompts();
   els.resultsCount.textContent = filtered.length === PROMPTS.length
     ? `Viser ${filtered.length} af ${PROMPTS.length}`
@@ -1631,35 +1731,45 @@ function render() {
   }
 
   els.prompts.innerHTML = filtered.map(p => `
-    <article class="card" data-type="${p.type}">
+    <article class="card" data-type="${p.type}" data-id="${p.id}">
       <div class="card-header">
         <div class="card-meta">
           <span class="type-badge">${p.type}</span>
-          <span class="id-tag">${p.id}</span>
-          <span>·</span>
           <span class="cat-tag">${p.cat}</span>
         </div>
       </div>
       <h2 class="card-title">${highlight(p.title, searchQuery)}</h2>
+      <div class="card-preview">${esc(p.text.replace(/\s+/g, ' ').trim())}</div>
       <div class="prompt-text">${highlight(p.text, searchQuery)}</div>
       <div class="card-footer">
         <button class="copy-btn" data-id="${p.id}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Kopiér prompt
         </button>
+        <span class="fold-toggle"><span class="label-collapsed">Fold ud</span><span class="label-expanded">Fold sammen</span></span>
       </div>
     </article>
   `).join('');
 
+  // Toggle expand on card click (but ignore clicks inside the prompt text or copy button)
+  els.prompts.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.copy-btn')) return;
+      if (e.target.closest('.prompt-text')) return;
+      card.classList.toggle('expanded');
+    });
+  });
+
   // Attach copy listeners
   els.prompts.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', async () => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
       const id = btn.dataset.id;
       const prompt = PROMPTS.find(p => p.id === id);
       if (!prompt) return;
       try {
         await navigator.clipboard.writeText(prompt.text);
-      } catch (e) {
+      } catch (err) {
         // Fallback
         const ta = document.createElement('textarea');
         ta.value = prompt.text;
