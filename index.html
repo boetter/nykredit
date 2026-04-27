@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt-bibliotek · Nykredit</title>
+<meta name="description" content="80 prompts til daglig brug for rådgivere, ledere, specialister, IT-folk og investeringsfolk i Nykredit. Bygget af Jacob Bøtter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F6F4F3;
+  --surface: #FFFFFF;
+  --navy: #07094A;
+  --navy-2: #0F1E82;
+  --navy-muted: rgba(7,9,74,0.62);
+  --navy-soft: rgba(7,9,74,0.42);
+  --navy-faint: rgba(7,9,74,0.08);
+  --teal: #67D2DF;
+  --teal-soft: rgba(103,210,223,0.18);
+  --yellow: #FFD568;
+  --yellow-soft: rgba(255,213,104,0.22);
+  --white: #FFFFFF;
+  --border: rgba(7,9,74,0.14);
+  --border-light: rgba(7,9,74,0.07);
+
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--navy);
+  line-height: 1.55;
+  font-size: 16px;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--navy);
+}
+
+/* ============ HERO ============ */
+.hero {
+  background: var(--navy);
+  color: var(--white);
+  padding: 96px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(103,210,223,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(255,213,104,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+.hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 36px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--teal);
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(56px, 11vw, 112px);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin-bottom: 28px;
+  font-variation-settings: "opsz" 144;
+  color: var(--white);
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--yellow);
+  font-variation-settings: "opsz" 144;
+}
+.hero-subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 56px;
+  max-width: 520px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  width: fit-content;
+}
+.hero-meta div {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.52);
+  text-transform: uppercase;
+}
+.hero-meta strong {
+  color: var(--white);
+  font-weight: 400;
+  display: block;
+  font-size: 32px;
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  font-variation-settings: "opsz" 48;
+}
+
+/* ============ STICKY FILTER BAR ============ */
+.filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(246,244,243,0.88);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid var(--border-light);
+  padding: 18px 24px 16px;
+}
+.filter-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-wrap svg {
+  position: absolute;
+  left: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--navy-muted);
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--navy);
+  transition: border-color 0.18s, box-shadow 0.18s;
+  letter-spacing: -0.005em;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(7,9,74,0.10);
+}
+.search-input::placeholder {
+  color: var(--navy-soft);
+}
+.search-clear {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--navy-muted);
+  display: none;
+  border-radius: 4px;
+}
+.search-clear:hover {
+  color: var(--navy);
+  background: var(--navy-faint);
+}
+.search-clear.visible {
+  display: flex;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.filters-row-types {
+  padding-bottom: 4px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  letter-spacing: -0.005em;
+}
+.pill:hover {
+  border-color: var(--navy);
+}
+.pill .count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.55;
+  font-weight: 400;
+}
+.pill.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+.pill.active .count {
+  opacity: 0.65;
+}
+.pill[data-type="QUICK"].active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--navy);
+}
+.pill[data-type="QUICK"].active .count {
+  opacity: 0.7;
+  color: var(--navy);
+}
+.pill[data-type="DEEP"].active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--navy);
+}
+.pill[data-type="DEEP"].active .count {
+  opacity: 0.7;
+  color: var(--navy);
+}
+.pill[data-type="QUICK"]:not(.active)::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  display: inline-block;
+}
+.pill[data-type="DEEP"]:not(.active)::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--yellow);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.results-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--navy-muted);
+  text-transform: uppercase;
+  padding: 4px 0 0 4px;
+  font-weight: 500;
+}
+
+/* ============ PROMPTS ============ */
+.prompts {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px 24px;
+  position: relative;
+  border: 1px solid var(--border-light);
+  transition: border-color 0.18s, box-shadow 0.18s;
+  overflow: hidden;
+}
+.card:hover {
+  border-color: var(--border);
+  box-shadow: 0 1px 2px rgba(7,9,74,0.04), 0 4px 16px rgba(7,9,74,0.04);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 4px;
+  background: var(--yellow);
+}
+.card[data-type="QUICK"]::before {
+  background: var(--teal);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--navy-muted);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+.type-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: var(--yellow);
+  color: var(--navy);
+}
+.card[data-type="QUICK"] .type-badge {
+  background: var(--teal);
+}
+.id-tag {
+  color: var(--navy);
+  font-weight: 500;
+}
+.cat-tag {
+  color: var(--navy-muted);
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.012em;
+  color: var(--navy);
+  margin-bottom: 18px;
+  font-variation-settings: "opsz" 32;
+}
+
+.prompt-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  background: rgba(7,9,74,0.025);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  color: var(--navy);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 16px;
+  max-height: 420px;
+  overflow-y: auto;
+  letter-spacing: -0.003em;
+}
+.prompt-text::-webkit-scrollbar { width: 6px; }
+.prompt-text::-webkit-scrollbar-track { background: transparent; }
+.prompt-text::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.prompt-text::-webkit-scrollbar-thumb:hover { background: var(--navy-soft); }
+
+.card[data-type="QUICK"] .prompt-text {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  background: rgba(103,210,223,0.06);
+  border-color: rgba(103,210,223,0.20);
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.copy-btn {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.15s, transform 0.15s;
+  letter-spacing: -0.005em;
+}
+.copy-btn:hover {
+  background: var(--navy-2);
+}
+.copy-btn:active {
+  transform: scale(0.97);
+}
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+.copy-btn.copied {
+  background: var(--teal);
+  color: var(--navy);
+}
+
+/* ============ EMPTY STATE ============ */
+.empty {
+  text-align: center;
+  padding: 96px 24px;
+  color: var(--navy-muted);
+}
+.empty-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.empty-text {
+  font-size: 14px;
+  color: var(--navy-muted);
+}
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  background: var(--navy);
+  color: var(--white);
+  padding: 12px 20px 12px 16px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  box-shadow: 0 8px 32px rgba(7,9,74,0.24), 0 2px 6px rgba(7,9,74,0.12);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.005em;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast-check {
+  width: 20px;
+  height: 20px;
+  background: var(--teal);
+  border-radius: 50%;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ============ FOOTER ============ */
+.site-footer {
+  border-top: 1px solid var(--border-light);
+  padding: 48px 24px 64px;
+  text-align: center;
+  background: var(--bg);
+}
+.footer-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--navy-muted);
+  letter-spacing: 0.02em;
+}
+.footer-inner a {
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.15s;
+}
+.footer-inner a:hover {
+  border-color: var(--navy);
+}
+.footer-divider {
+  width: 32px;
+  height: 1px;
+  background: var(--border);
+  margin: 0 auto 20px;
+}
+.footer-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--navy-muted);
+  margin-bottom: 20px;
+  font-variation-settings: "opsz" 14;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 720px) {
+  .hero {
+    padding: 64px 20px 56px;
+  }
+  .hero-eyebrow {
+    margin-bottom: 28px;
+  }
+  .hero-subtitle {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+  .hero-meta {
+    gap: 28px;
+  }
+  .hero-meta strong {
+    font-size: 26px;
+  }
+  .filter-bar {
+    padding: 14px 16px 12px;
+  }
+  .prompts {
+    padding: 40px 16px 64px;
+    gap: 14px;
+  }
+  .card {
+    padding: 22px 22px 20px;
+  }
+  .card-title {
+    font-size: 20px;
+  }
+  .prompt-text {
+    font-size: 12.5px;
+    padding: 15px 16px;
+  }
+  .card[data-type="QUICK"] .prompt-text {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Nykredit · AI · Forår 2026</div>
+    <h1 class="hero-title">Prompt-<br><em>bibliotek</em></h1>
+    <p class="hero-subtitle">80 prompts til daglig brug for rådgivere, ledere, specialister, IT-folk og investeringsfolk i Nykredit.</p>
+    <div class="hero-meta">
+      <div><strong>80</strong>prompts</div>
+      <div><strong>9</strong>kategorier</div>
+      <div><strong>2</strong>typer</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<section class="filter-bar">
+  <div class="filter-inner">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search" class="search-input" placeholder="Søg i titel, kategori eller prompt-tekst...">
+      <button class="search-clear" id="search-clear" aria-label="Ryd søgning">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="filters filters-row-types" id="type-filters">
+      <button class="pill active" data-type="all">Alle <span class="count">80</span></button>
+      <button class="pill" data-type="QUICK">Quick <span class="count">40</span></button>
+      <button class="pill" data-type="DEEP">Deep <span class="count">40</span></button>
+    </div>
+    <div class="filters" id="category-filters"></div>
+    <div class="results-count" id="results-count">Viser 80 af 80</div>
+  </div>
+</section>
+
+<!-- PROMPTS -->
+<main class="prompts" id="prompts"></main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-divider"></div>
+    <p class="footer-note">Anonymisér altid kundedata. Verificér tal og henvisninger.</p>
+    <p>Bygget af <a href="https://boetter.dk" target="_blank" rel="noopener">Jacob Bøtter</a> · 2026</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-check">✓</span>
+  <span>Prompt kopieret til udklipsholder</span>
+</div>
+
+<script>
+const PROMPTS = [
+// ============ KUNDERÅDGIVNING (5 DEEP + 3 QUICK) ============
+{ id: "D01", cat: "Kunderådgivning", type: "DEEP", title: "Briefing før møde med erhvervskunde", text: `ROLLE: Du er min erfarne research-assistent med mange års erfaring i dansk
+erhvervsbankrådgivning og realkredit.
+
+KONTEKST: Jeg er erhvervsrådgiver i Nykredit og skal i næste uge holde et
+møde med virksomheden [NAVN, CVR xxxxxxxx]. Mødets formål er [indsæt formål
+— fx refinansiering af realkreditlån, vurdering af driftskredit, dialog om
+investeringer]. Mit udgangspunkt er [indsæt: ny relation / eksisterende
+kunde siden xxxx / overtaget fra kollega].
+
+METODE: Lav en briefing på maks 1 A4-side med:
+1. Kerneforretning og seneste regnskabstal (omsætning, resultat, soliditet)
+2. Ejerstruktur og nøglepersoner
+3. Tre væsentligste finansielle eksponeringer ud fra branche og størrelse
+4. Nyheder fra seneste 6 måneder der påvirker deres lånebehov eller risiko
+5. Tre åbnende spørgsmål til mødet jeg kan bruge
+
+Kildehenvisninger under hvert punkt. Vær skeptisk — sig "jeg ved det ikke"
+frem for at gætte.` },
+
+{ id: "D02", cat: "Kunderådgivning", type: "DEEP", title: "Forberedelse til boligrådgivningssamtale", text: `ROLLE: Du er min erfarne kollega som privat boligrådgiver i Nykredit med
+dyb forståelse for realkredit, bank og forsikring.
+
+KONTEKST: Jeg har en samtale i morgen med [kundeprofil: fx familie på fire,
+samlet bruttoindkomst xx mio. kr., ejer hus til xx mio., aktuel restgæld xx,
+fast rente F-Kort+5 udløber om 14 måneder]. Kunden har bedt om en
+gennemgang af [konvertering / tillægsbelåning / refinansiering / købsrådgivning
+til ny bolig].
+
+METODE: Forbered mig på 1 A4-side med:
+1. De 3 vigtigste talpunkter jeg skal have klar (rente, ydelse, restgæld,
+   belåningsgrad)
+2. De 3 sandsynlige bekymringer kunden vil have
+3. To alternative låneprodukter jeg bør kunne sammenligne live
+4. En afsluttende anbefaling-skabelon jeg kan tilpasse i mødet
+
+Brug almindeligt dansk uden låne-jargon i bekymringerne — så jeg kan se det
+fra kundens vinkel.` },
+
+{ id: "D03", cat: "Kunderådgivning", type: "DEEP", title: "Private Banking — formuegennemgang", text: `ROLLE: Du er min erfarne kollega i Nykredit Private Banking med erfaring
+i investerings-, pensions- og generationsskifterådgivning.
+
+KONTEKST: Jeg skal mødes med [kunde A — fx 62-årig direktør, gift, to
+voksne børn, formue ca. xx mio. kr. fordelt på depot, pension, ejendom,
+selskab]. Kunden har efterspurgt en samtale om [generationsskifte / pension
+om tre år / risikospredning / etablering af holdingstruktur].
+
+METODE: Lav en mødeforberedelse på maks 2 A4-sider:
+1. De 3 livsfase-temaer jeg bør tage initiativ til at åbne
+2. De 4 produktområder jeg skal have parat (investering, pension, lån,
+   forsikring) med 1-2 talepunkter pr. område
+3. Tre spørgsmål jeg kan stille for at afdække værdier og prioriteter
+4. En liste over interne specialister jeg potentielt skal trække ind
+   (skatterådgiver, forsikringsspecialist, advokat-samarbejde)
+
+Tone: kvalificeret og afdæmpet. Ingen salgssprog.` },
+
+{ id: "D04", cat: "Kunderådgivning", type: "DEEP", title: "Behovsafklaring hos ny erhvervskunde", text: `ROLLE: Du er min erfarne kollega som erhvervsrådgiver i Nykredit med
+speciale i mellemstore danske virksomheder.
+
+KONTEKST: Jeg har første møde i morgen med [virksomhed, branche, ca. størrelse].
+Vi kender ikke hinanden. Min hypotese er at de har behov inden for
+[realkredit / driftskredit / cash management / investering / valutaafdækning].
+
+METODE: Giv mig en spørgsmålsguide opdelt i 4 faser:
+1. Forretningsforståelse (5 spørgsmål)
+2. Finansiel situation og likviditet (5 spørgsmål)
+3. Risiko og fremtid (5 spørgsmål)
+4. Beslutningsproces og forventninger til bank (3 spørgsmål)
+
+Hvert spørgsmål skal være åbent (ikke ja/nej) og max 15 ord.
+Markér de 3 spørgsmål jeg helst ikke skal springe over.` },
+
+{ id: "D05", cat: "Kunderådgivning", type: "DEEP", title: "Opfølgningsmail efter kundemøde", text: `ROLLE: Du er min skriveassistent med erfaring i dansk bank- og
+realkreditkommunikation.
+
+KONTEKST: Jeg er rådgiver i Nykredit. Jeg har lige holdt møde med
+[kunde]. Mine stikord fra mødet:
+
+[indsæt stikord — kan være rodede, telegramstil er fint]
+
+Aftalte næste skridt: [indsæt]. Deadline: [indsæt].
+
+METODE: Skriv en opfølgningsmail på maks 200 ord der:
+- Takker for mødet
+- Bekræfter de 3 vigtigste pointer i punktform
+- Lister de aftalte næste skridt med ansvarlig og deadline
+- Slutter med en konkret invitation til kontakt
+
+Tone: varm og professionel. Ingen forsikrings-jargon. Brug "vi" ikke
+"Nykredit" i indledningen.` },
+
+{ id: "Q01", cat: "Kunderådgivning", type: "QUICK", title: "Forretningsmodel som Business Model Canvas", text: `Forklar denne forretningsmodel med Business Model Canvas — alle ni felter udfyldt med stikord.` },
+
+{ id: "Q02", cat: "Kunderådgivning", type: "QUICK", title: "Flowchart: produkt A vs produkt B", text: `Lav et tekst-flowchart over hvornår jeg skal anbefale produkt A og hvornår produkt B til en kunde.` },
+
+{ id: "Q03", cat: "Kunderådgivning", type: "QUICK", title: "Fem åbne spørgsmål til ny kunde", text: `Lav fem åbne spørgsmål jeg kan stille en ny privatkunde — undgå klichéer som "hvad er dine drømme for fremtiden".` },
+
+// ============ KREDITVURDERING (5 DEEP + 2 QUICK) ============
+{ id: "D06", cat: "Kreditvurdering", type: "DEEP", title: "Indledende kreditscreening af erhvervskunde", text: `ROLLE: Du er min erfarne kollega i Nykredits erhvervskredit-afdeling.
+
+KONTEKST: Jeg er ved at lave en indledende screening af [virksomhed,
+branche, omsætning ca. xx mio., antal ansatte, beliggenhed]. De søger
+[lånetype, beløb, formål]. Jeg har adgang til seneste tre regnskabsår
+samt ledelsesberetning.
+
+METODE: Stil mig de 10 vigtigste screeningsspørgsmål jeg bør have svar
+på FØR jeg går videre med indstilling. Inddel i:
+- Forretningsmodel og marked (3 spørgsmål)
+- Finansiel sundhed og udvikling (3 spørgsmål)
+- Sikkerhedsstillelse og struktur (2 spørgsmål)
+- Ledelse og governance (2 spørgsmål)
+
+For hvert spørgsmål: én linje om hvorfor det er vigtigt, og hvor jeg
+typisk finder svaret (regnskab, ledelsesberetning, CVR, samtale med kunde).` },
+
+{ id: "D07", cat: "Kreditvurdering", type: "DEEP", title: "Risikofaktorer ved boliglån til førstegangskøber", text: `ROLLE: Du er min erfarne kollega som boligrådgiver i Nykredit med
+specifik erfaring med førstegangskøbere.
+
+KONTEKST: Jeg skal vurdere låneanmodning fra [kundeprofil — fx par i
+starten af 30'erne, samlet husstandsindkomst xx, opsparing xx, ingen
+børn endnu, søger ejerlejlighed til xx i [kommune]]. Belåningsgrad bliver
+[xx]%. De ønsker [F3 / F-kort / fast rente].
+
+METODE: Giv mig en risikovurdering struktureret som:
+1. De 5 vigtigste risikofaktorer for netop denne profil
+2. For hver: kort hvorfor det er en risiko, og hvad jeg kan undersøge
+   nærmere
+3. To stress-test-scenarier (rentestigning, indkomstbortfald)
+4. En klar anbefaling: lav / mellem / høj risiko, og hvilke vilkår jeg
+   bør foreslå
+
+Skriv så jeg kan bruge punkterne direkte i min indstilling.` },
+
+{ id: "D08", cat: "Kreditvurdering", type: "DEEP", title: "Branchespecifik risikoanalyse — landbrug", text: `ROLLE: Du er min erfarne brancheanalytiker med dyb viden om dansk
+landbrug og Nykredits position som realkreditgiver i landbruget.
+
+KONTEKST: Jeg skal vurdere en kunde inden for [malkekvæg / svin / planteavl /
+mink / økologi] med [antal hektar / antal dyr / omsætning xx mio.]. De
+søger [refinansiering / udvidelse / generationsskifte].
+
+METODE: Lav en branchebriefing på 1 A4-side:
+1. Aktuel branchesituation og 12-24 måneders udsigter (priser, regulering,
+   bæredygtighed)
+2. De 3 største finansielle risici for netop denne bedriftstype lige nu
+3. To regulatoriske forhold der påvirker kreditvurderingen
+   (fx CAP, kvælstofregulering, dyrevelfærd)
+4. To åbne spørgsmål jeg bør stille til kunden ud over standardpakken
+
+Vær specifik — undgå generelle udsagn som "landbruget er presset".` },
+
+{ id: "D09", cat: "Kreditvurdering", type: "DEEP", title: "Læs et driftsregnskab — find signaler", text: `ROLLE: Du er min erfarne kollega i Nykredits kreditafdeling med
+mange års erfaring i regnskabsanalyse for SMV'er.
+
+KONTEKST: Jeg har vedhæftet/indsat seneste tre års årsregnskaber for
+[virksomhed, branche]. Jeg leder efter de tidlige signaler på finansiel
+forværring eller forbedring.
+
+[INDSÆT NØGLETAL ELLER VEDHÆFT REGNSKAB]
+
+METODE: Giv mig en analyse i tre dele:
+1. Tre positive signaler (med tal/nøgletal som dokumentation)
+2. Tre advarselssignaler (med tal/nøgletal som dokumentation)
+3. Tre nøglespørgsmål jeg bør stille til virksomhedens CFO/ejer
+   for at forstå udviklingen
+
+Brug konkrete tal fra regnskabet. Spring ikke over hvis tallene er
+inkonsistente — flag det i stedet.` },
+
+{ id: "D10", cat: "Kreditvurdering", type: "DEEP", title: "Udkast til kreditindstilling", text: `ROLLE: Du er min skriveassistent med erfaring i danske kreditindstillinger.
+
+KONTEKST: Jeg er kreditmedarbejder i Nykredit og skal skrive en indstilling
+til kreditkomitéen om [kunde, ansøgt produkt, beløb, formål]. Jeg har
+følgende rå noter og data:
+
+[INDSÆT NOTER, NØGLETAL, ANBEFALING]
+
+METODE: Skriv et struktureret udkast på maks 1½ A4-side med følgende afsnit:
+1. Sagsresumé (3-5 linjer)
+2. Kunde og forretning
+3. Finansiel situation og udvikling
+4. Sikkerhedsstillelse og forhold
+5. Risikovurdering
+6. Indstilling og vilkår
+
+Tone: nøgtern, faktuel, beslutningsorienteret. Ingen salgssprog.
+Marker [USIKKERT] hvor mine noter er for tynde til en konklusion.` },
+
+{ id: "Q04", cat: "Kreditvurdering", type: "QUICK", title: "PESTEL-analyse af branche", text: `Lav en PESTEL-analyse af denne branche med max 3 punkter pr. faktor.` },
+
+{ id: "Q05", cat: "Kreditvurdering", type: "QUICK", title: "Fordele og ulemper ved produkt", text: `Forklar fordele OG ulemper ved dette produkt — tre af hver, lige langt.` },
+
+// ============ INVESTERING (5 DEEP + 1 QUICK) ============
+{ id: "D11", cat: "Investering", type: "DEEP", title: "Markedsbriefing før dagens åbning", text: `ROLLE: Du er min markedsanalytiker-kollega med dækning af danske og
+europæiske rentemarkeder samt aktiemarkedet.
+
+KONTEKST: Jeg er dealer/investeringsrådgiver i Nykredit. Det er
+[dato, dag]. Jeg har brug for et hurtigt overblik før dagens åbning.
+Mine fokusområder er: [fx danske realkreditobligationer, EUR/DKK,
+amerikanske renter, danske C25-aktier].
+
+METODE: Giv mig en briefing på maks 250 ord struktureret som:
+1. Hovedoverskrifter fra natten/morgenen (3 punkter)
+2. Forventede markedsdrivere i dag (2-3 punkter)
+3. Kalenderbegivenheder og nøgletal der udkommer i dag
+4. Et kort bullet med "watch out for" — det jeg særligt skal følge
+
+Hold tonen analytisk og afdæmpet. Ingen anbefalinger om at købe/sælge.` },
+
+{ id: "D12", cat: "Investering", type: "DEEP", title: "Forklar investeringsstrategi til PB-kunde", text: `ROLLE: Du er min skriveassistent med erfaring i dansk Private Banking-
+kommunikation.
+
+KONTEKST: Jeg er rådgiver i Nykredit Private Banking. Jeg skal forklare
+[fx en 60/40-portefølje / en risikospredt aktieportefølje / en
+obligationstung defensiv strategi] til [kundeprofil — alder, formue,
+risikoprofil, investeringshorisont]. Kunden har bedt om en skriftlig
+opsummering inden vi mødes næste uge.
+
+METODE: Skriv en kort forklaring på maks 350 ord der:
+1. Forklarer strategiens kerneidé i 2-3 sætninger uden jargon
+2. Beskriver fordelingen og hvorfor den passer til kundens profil
+3. Sætter forventninger til afkast og udsving (med ærlige tal)
+4. Nævner to ting kunden skal være opmærksom på
+5. Slutter med et naturligt næste skridt
+
+Tone: rolig, fagligt sober, uden løfter. Brug du-form. Forklar
+fagudtryk første gang de optræder.` },
+
+{ id: "D13", cat: "Investering", type: "DEEP", title: "Porteføljeanalyse — koncentrationsrisici", text: `ROLLE: Du er min erfarne porteføljeanalytiker-kollega med fokus på
+risikospredning.
+
+KONTEKST: Jeg er asset management-specialist/Private Banking-rådgiver
+i Nykredit. Her er en kundes nuværende portefølje:
+
+[INDSÆT BEHOLDNING — papirer, vægte, sektorer, geografi]
+
+Kundens stated risikoprofil er [konservativ / balanceret / vækst].
+
+METODE: Analysér porteføljen og giv mig:
+1. De 3 største koncentrationsrisici (fx enkeltpapir, sektor,
+   geografi, valuta)
+2. For hver: hvor stor eksponering er der, og hvorfor er det en
+   bekymring givet kundens profil
+3. To-tre konkrete diversifikationsforslag jeg kan tage med til
+   næste rådgivningsmøde
+4. Et kort talepunkt jeg kan bruge når jeg åbner samtalen
+
+Vær konservativ i vurderingen. Markér klart hvor du gætter vs.
+hvor du regner på data.` },
+
+{ id: "D14", cat: "Investering", type: "DEEP", title: "Sammenfat lang analytikerrapport", text: `ROLLE: Du er min researchassistent med erfaring i investeringsanalyser.
+
+KONTEKST: Jeg er [investeringsrådgiver / asset manager / analytiker]
+i Nykredit. Jeg har en lang analytikerrapport om [emne — fx ECB's
+næste rentemøde, dansk boligmarked, Novo Nordisk Q-rapport]. Jeg har
+ikke tid til at læse de [xx] sider.
+
+[INDSÆT RAPPORT ELLER LINK]
+
+METODE: Lav en TL;DR jeg kan læse på 2 minutter:
+1. Konklusionen i én sætning
+2. De 3 vigtigste argumenter med stikord-evidens
+3. Et tal eller datapunkt jeg særligt skal huske
+4. To risici eller modargumenter rapporten diskuterer
+5. Hvad rapporten IKKE dækker (potentielle blinde vinkler)
+
+Maks 300 ord. Brug bullets. Ingen indledning.` },
+
+{ id: "D15", cat: "Investering", type: "DEEP", title: "Månedsrapport-introduktion", text: `ROLLE: Du er min skriveassistent med erfaring i månedsrapporter til
+investorer.
+
+KONTEKST: Jeg er [asset manager / Private Banking-rådgiver] i Nykredit.
+Jeg skal skrive intro-afsnittet til min månedsrapport for [måned, år].
+Mine vigtigste pointer:
+
+- [punkt om markedsudvikling]
+- [punkt om porteføljens performance]
+- [punkt om positionering fremadrettet]
+
+METODE: Skriv en intro på 200-250 ord der:
+1. Åbner med dét, der prægede markedet i måneden
+2. Forklarer hvordan det påvirkede porteføljen
+3. Slutter med vores positionering og hvad vi holder øje med næste måned
+
+Tone: professionel, fagligt sober, uden overdrevne formuleringer.
+Ingen "spændende tider" eller "udfordrende marked"-klichéer.` },
+
+{ id: "Q06", cat: "Investering", type: "QUICK", title: "Porter's Five Forces", text: `Lav en Porter's Five Forces-analyse af denne sektor og marker den kraft der er stærkest.` },
+
+// ============ JURA & REGULERING (4 DEEP + 2 QUICK) ============
+{ id: "D16", cat: "Jura & regulering", type: "DEEP", title: "DORA — identificér gaps i eget område", text: `ROLLE: Du er min juridiske sparringspartner med speciale i finansiel
+regulering, særligt DORA (Digital Operational Resilience Act).
+
+KONTEKST: Jeg arbejder i Nykredit inden for [område — IT-leverandørstyring /
+incident response / risk management / outsourcing]. Vi er i gang med
+DORA-implementering og jeg vil gerne stress-teste om vi har dækket de
+vigtigste krav i mit område.
+
+Vores nuværende setup: [beskriv kort]
+
+METODE: Stil mig 10 spørgsmål struktureret efter DORA's fem søjler:
+1. ICT risk management (2 spørgsmål)
+2. ICT-related incident reporting (2 spørgsmål)
+3. Digital operational resilience testing (2 spørgsmål)
+4. ICT third-party risk (3 spørgsmål)
+5. Information sharing (1 spørgsmål)
+
+For hvert spørgsmål: ét linje om hvad et "godt svar" indeholder, så
+jeg kan bruge det som intern tjekliste.
+
+Disclaimer: dit svar er starthjælp, ikke juridisk rådgivning.` },
+
+{ id: "D17", cat: "Jura & regulering", type: "DEEP", title: "MiFID II egnethedsvurdering — forklaret til kunde", text: `ROLLE: Du er min skriveassistent med kendskab til MiFID II og dansk
+investeringsrådgivning.
+
+KONTEKST: Jeg er investeringsrådgiver i Nykredit. En privatkunde har
+spurgt hvorfor de skal igennem en egnethedsvurdering før jeg kan
+anbefale produkter. De synes spørgsmålene er for personlige.
+
+METODE: Skriv et venligt og pædagogisk svar (maks 200 ord) der:
+1. Forklarer formålet med egnethedsvurderingen i hverdagssprog
+2. Forklarer hvorfor det er et lovkrav, ikke en valg-tjekliste
+3. Anerkender at det kan virke personligt
+4. Forklarer hvad vi gør med oplysningerne (og ikke gør)
+5. Slutter med en invitation til at spørge løbende
+
+Tone: respektfuld og menneskelig. Undgå "Iht. MiFID II § ..."-formuleringer.` },
+
+{ id: "D18", cat: "Jura & regulering", type: "DEEP", title: "Hvidvask — vurdér røde flag i kundeprofil", text: `ROLLE: Du er min sparringspartner med viden om hvidvaskloven og
+typiske risikoindikatorer i dansk bank.
+
+KONTEKST: Jeg er rådgiver/AML-medarbejder i Nykredit. Jeg har følgende
+kundeprofil og transaktionsmønster, som jeg er i tvivl om jeg skal
+eskalere:
+
+[INDSÆT ANONYMISERET BESKRIVELSE — type virksomhed/person, geografi,
+beløbsstørrelser, frekvens, branche, ejerstruktur]
+
+METODE: Hjælp mig med at strukturere min vurdering:
+1. List op til 5 mulige røde flag i den beskrevne situation
+2. For hvert: forklar hvorfor det kunne være et flag, og hvad der
+   kunne være en legitim forklaring
+3. Foreslå 3 konkrete oplysninger jeg bør indhente før eskalering
+4. Giv mig en samlet vurdering: bør sagen eskaleres til hvidvask-
+   ansvarlig (ja/nej/måske + begrundelse)
+
+Disclaimer: dit svar er ikke en officiel hvidvaskvurdering, og den
+endelige beslutning ligger hos mig og hvidvask-ansvarlig.` },
+
+{ id: "D19", cat: "Jura & regulering", type: "DEEP", title: "GDPR-vurdering af nyt dataflow", text: `ROLLE: Du er min juridiske sparringspartner med fokus på GDPR i
+dansk finansiel sektor.
+
+KONTEKST: Jeg arbejder i Nykredit og er ved at implementere [nyt system /
+ny integration / ny proces] der involverer behandling af
+[type personoplysninger — fx kundedata, økonomidata, helbreds-
+oplysninger via PEP-screening]. Dataflowet er:
+
+[INDSÆT BESKRIVELSE]
+
+METODE: Hjælp mig med en indledende vurdering:
+1. List de 5 GDPR-spørgsmål jeg bør have besvaret før jeg går videre
+2. Vurdér om dette sandsynligvis kræver en DPIA (databeskyttelses-
+   konsekvensanalyse) — ja/nej/måske + begrundelse
+3. Identificér de 2-3 største databeskyttelsesrisici i flowet
+4. Foreslå første mitigerende tiltag for hver risiko
+
+Disclaimer: din vurdering er starthjælp. DPO og jurist skal involveres
+før endelig beslutning.` },
+
+{ id: "Q07", cat: "Jura & regulering", type: "QUICK", title: "Argument som Toulmin-model", text: `Vis mig argumentet i denne tekst som Toulmin-model: påstand → belæg → hjemmel → rygdækning.` },
+
+{ id: "Q08", cat: "Jura & regulering", type: "QUICK", title: "Find skjulte antagelser", text: `Find skjulte antagelser i dette beslutningsoplæg som ikke er udtalte men nødvendige for konklusionen.` },
+
+// ============ IT & UDVIKLING (5 DEEP + 4 QUICK) ============
+{ id: "D20", cat: "IT & udvikling", type: "DEEP", title: "Code review af kort kodestump", text: `ROLLE: Du er min erfarne udvikler-kollega med fokus på kvalitet,
+sikkerhed og vedligeholdelse i finansiel software.
+
+KONTEKST: Jeg arbejder i Nykredits IT. Jeg har skrevet følgende
+[sprog] kode der skal [formål]:
+
+[INDSÆT KODE]
+
+METODE: Lav en code review struktureret i fire kategorier:
+1. Korrekthed (gør koden det den skal? edge cases?)
+2. Sikkerhed (særligt med tanke på finansielle data — input validering,
+   logging af sensitive data, secrets)
+3. Vedligeholdbarhed (læsbarhed, navngivning, kompleksitet)
+4. Performance (kun hvis relevant)
+
+For hvert punkt: kort beskrivelse + konkret forslag til ændring +
+sværhedsgrad (let / medium / kræver refaktorering).
+
+Vær konkret. Generelle udsagn som "tilføj logging" er ikke nok.` },
+
+{ id: "D21", cat: "IT & udvikling", type: "DEEP", title: "Forfin en user story", text: `ROLLE: Du er min Product Owner-kollega med erfaring i agil udvikling
+i bank- og forsikringsdomænet.
+
+KONTEKST: Jeg arbejder i Nykredits IT. Jeg har skrevet et udkast til
+en user story:
+
+[INDSÆT USER STORY]
+
+Den skal med på næste sprint planning og jeg vil gerne sikre at den
+er klar nok til at teamet kan estimere og bygge uden at gætte.
+
+METODE: Gennemgå storyen og svar på:
+1. Er "Som... vil jeg... så jeg..."-strukturen klar? Foreslå forbedring
+2. Mangler der acceptkriterier? Hvis ja, foreslå 3-5 i Given/When/Then-format
+3. Er der afhængigheder eller forudsætninger der bør nævnes?
+4. Hvilke 2-3 åbne spørgsmål bør jeg afklare med stakeholderen før
+   sprint planning?
+5. Foreslå en størrelsesindikator (XS/S/M/L/XL) med begrundelse
+
+Skriv den forbedrede story som sidste punkt, klar til at indsætte
+i Jira.` },
+
+{ id: "D22", cat: "IT & udvikling", type: "DEEP", title: "Arkitekturvurdering af forslået løsning", text: `ROLLE: Du er min erfarne løsningsarkitekt-kollega med erfaring fra
+finansiel sektor og fokus på integration, sikkerhed og skalerbarhed.
+
+KONTEKST: Jeg arbejder i Nykredits IT. Vi overvejer følgende
+arkitekturløsning til [problem/feature]:
+
+[INDSÆT ARKITEKTURBESKRIVELSE — komponenter, integrationer, datastrømme]
+
+METODE: Lav en hurtig arkitekturvurdering:
+1. Tre styrker ved den foreslåede løsning
+2. Tre svagheder eller risici (særligt mht. sikkerhed, drift, leverandør-
+   afhængighed, regulatoriske krav som DORA)
+3. To alternative tilgange jeg bør overveje
+4. Fem spørgsmål jeg bør stille før vi træffer beslutning
+5. En sundhedstest: hvis dette går galt om 3 år, hvad er så den mest
+   sandsynlige årsag?
+
+Vær konkret og kritisk. Ingen "det afhænger af konteksten"-svar.` },
+
+{ id: "D23", cat: "IT & udvikling", type: "DEEP", title: "Oversæt teknisk indhold til forretning", text: `ROLLE: Du er min skriveassistent med erfaring i at oversætte teknisk
+indhold til forretningssprog.
+
+KONTEKST: Jeg er [arkitekt / udvikler / proceskonsulent] i Nykredits IT.
+Jeg har følgende tekniske beskrivelse der skal læses af [forretnings-
+ledere / direktion / styregruppe]:
+
+[INDSÆT TEKNISK INDHOLD]
+
+METODE: Skriv en oversat version på maks 350 ord der:
+1. Åbner med "Hvad det betyder i praksis" (2-3 sætninger)
+2. Forklarer hvad ændringen/løsningen gør for kunderne eller
+   forretningen
+3. Forklarer hvad det IKKE løser
+4. Lister tre konkrete risici eller forudsætninger i hverdagssprog
+5. Slutter med hvad der kræves af modtageren (beslutning?
+   information? feedback?)
+
+Forklar tekniske udtryk første gang de optræder. Brug analogier hvor
+det giver mening. Ingen akronymer uden forklaring.` },
+
+{ id: "D24", cat: "IT & udvikling", type: "DEEP", title: "Forbered facilitering af retrospective", text: `ROLLE: Du er min erfarne Scrum Master-kollega.
+
+KONTEKST: Jeg er Scrum Master i Nykredits IT. Mit team har lige
+afsluttet en sprint hvor [beskriv kort — fx vi leverede meget
+under pres / vi havde mange tekniske problemer / et nyt teammedlem
+startede / der var spændinger]. Jeg skal facilitere retrospective
+på torsdag (90 min, 7 deltagere på Teams).
+
+METODE: Foreslå mig:
+1. Et tema/format der passer til situationen (med begrundelse)
+2. En agenda med tidsbokse der summerer til 90 min
+3. Fire konkrete spørgsmål til "what went well / what didn't"-runden
+   tilpasset situationen — undgå klichéer
+4. To psykologisk-tryghedsfremmende greb hvis der er spændinger
+5. En afslutning der sikrer at vi forlader mødet med max 3 konkrete
+   action items med ejer
+
+Realistisk plan. Antag at folk er trætte og presset på tid.` },
+
+{ id: "Q09", cat: "IT & udvikling", type: "QUICK", title: "Tekst-flowchart over proces", text: `Tegn et tekst-baseret flowchart over denne proces med beslutningspunkter markeret med ◆.` },
+
+{ id: "Q10", cat: "IT & udvikling", type: "QUICK", title: "CSV til JSON med datacheck", text: `Konvertér denne CSV til JSON-format og marker hvor data ser usundt ud (manglende værdier, dubletter, datofejl).` },
+
+{ id: "Q11", cat: "IT & udvikling", type: "QUICK", title: "Forklar kode i hverdagssprog", text: `Forklar denne kode linje for linje i hverdagssprog som om jeg ikke kender sproget.` },
+
+{ id: "Q12", cat: "IT & udvikling", type: "QUICK", title: "Fem testcases inkl. edge cases", text: `Foreslå fem testcases for denne funktion inkl. edge cases (tomme inputs, ekstreme værdier, forkert datatype).` },
+
+// ============ LEDELSE & HR (4 DEEP + 2 QUICK) ============
+{ id: "D25", cat: "Ledelse & HR", type: "DEEP", title: "Forberedelse til medarbejdersamtale", text: `ROLLE: Du er min sparringspartner med erfaring i ledelse og HR i
+dansk finansiel sektor.
+
+KONTEKST: Jeg er leder i Nykredit og skal holde medarbejdersamtale med
+[medarbejderens rolle, anciennitet]. De seneste 6 måneder har der været
+[indsæt vigtige observationer — gode og knap så gode]. Mit indtryk er
+[indsæt]. Medarbejderen har selv sagt [hvis noget er kendt].
+
+METODE: Hjælp mig med at forberede mig på 1 A4-side:
+1. Tre temaer jeg bør have med (med formulering jeg kan bruge ordret)
+2. To åbne spørgsmål der kan starte en god dialog
+3. Hvis jeg skal give kritisk feedback: en formulering bygget på SBI
+   (Situation/Behavior/Impact)
+4. To ting jeg skal lytte efter snarere end tale om
+5. En passende afslutning der peger fremad
+
+Tone: respektfuld og direkte. Ingen sandwich-feedback eller fluffy
+formuleringer.` },
+
+{ id: "D26", cat: "Ledelse & HR", type: "DEEP", title: "Rollespil — vanskelig samtale", text: `ROLLE: Du skal spille rollen som [medarbejder/kollega/kunde] i en
+vanskelig samtale jeg skal have. Du er ikke aggressiv, men heller
+ikke samarbejdsvillig.
+
+KONTEKST: Jeg er leder i Nykredit. Jeg skal i morgen tale med [rolle]
+om [emne — fx underperformance / advarsel / afslag på ønsket forfremmelse /
+omstrukturering]. Personen er [kort profil — typisk reaktionsmønster,
+relation til mig, anciennitet].
+
+METODE: Spil rollen realistisk. Du må gerne være defensiv, stille
+modspørgsmål, virke skuffet. Stop ikke samtalen — lad mig øve mig.
+
+Når jeg skriver "PAUSE", trædet du ud af rollen og giver mig:
+- Hvad jeg gjorde godt
+- Hvad jeg kunne have sagt anderledes
+- Hvad du som modpart fornemmede mellem linjerne
+
+Vi kan derefter starte forfra eller fortsætte hvor vi slap.` },
+
+{ id: "D27", cat: "Ledelse & HR", type: "DEEP", title: "Struktur til 1:1-møder", text: `ROLLE: Du er min sparringspartner med erfaring i ledelse.
+
+KONTEKST: Jeg er leder i Nykredit med [antal] direkte rapporter. Jeg
+har 1:1-møder hver [hyppighed]. Jeg synes mine 1:1'er er blevet for
+status-prægede og for lidt udviklingsorienterede.
+
+METODE: Foreslå mig:
+1. En agenda-skabelon på 30 min med faste sektioner og tidsfordeling
+2. Fem skiftende åbningsspørgsmål jeg kan rotere mellem
+3. Tre signaler jeg skal lytte efter (psykologisk tryghed, motivation,
+   overbelastning)
+4. En struktur til at fange op-til-ledelse fra mine medarbejdere uden
+   det bliver klagebrev
+5. En kvartalsvis "zoom ud"-version (45 min) der ser længere frem
+
+Lad det være konkret nok at jeg kan tage det i brug i næste 1:1.` },
+
+{ id: "D28", cat: "Ledelse & HR", type: "DEEP", title: "Udkast til jobopslag", text: `ROLLE: Du er min skriveassistent med erfaring i jobopslag til finansiel
+sektor i Danmark.
+
+KONTEKST: Jeg er leder i Nykredit og skal rekruttere en [titel] til
+[afdeling]. Stillingens kerne er [3-5 hovedopgaver]. Vigtige
+kvalifikationer: [indsæt]. Vi tilbyder [indsæt]. Vi søger en der
+[personprofil-stikord].
+
+METODE: Skriv et opslag på maks 400 ord struktureret som:
+1. Åbning der fanger opmærksomhed (én stærk linje)
+2. "Det skal du arbejde med" (3-4 punkter)
+3. "Det vi forventer du har med" (max 5 punkter — adskil "skal-have"
+   fra "godt at have")
+4. "Det vi tilbyder" (3 punkter med substans, ikke fluff)
+5. Afslutning med klar invitation og deadline
+
+Tone: ærlig, professionel, konkret. Undgå klichéer som "passioneret",
+"team player", "dynamisk miljø". Brug du-form.` },
+
+{ id: "Q13", cat: "Ledelse & HR", type: "QUICK", title: "Tre åbninger på vanskeligt emne", text: `Foreslå tre måder at åbne et vanskeligt emne på i en medarbejdersamtale, fra blød til direkte.` },
+
+{ id: "Q14", cat: "Ledelse & HR", type: "QUICK", title: "Fem ægte isbryder-spørgsmål", text: `Lav fem isbryder-spørgsmål til mit teams ugentlige møde der ikke er flove eller kunstige.` },
+
+// ============ KOMMUNIKATION (4 DEEP + 12 QUICK) ============
+{ id: "D29", cat: "Kommunikation", type: "DEEP", title: "Kundekommunikation om renteændring", text: `ROLLE: Du er min skriveassistent med erfaring i dansk realkredit-
+kommunikation.
+
+KONTEKST: Jeg arbejder i Nykredit og skal informere [målgruppe — fx
+F-Kort-kunder / privatkunder med variabel rente / erhvervskunder med
+specifikt produkt] om en ændring i [hvad — rentetilpasning / nye
+satser / produktvilkår]. Ændringen træder i kraft [dato]. Vigtigste
+fakta: [indsæt].
+
+METODE: Skriv tre versioner af samme besked:
+1. SMS/notifikation (max 160 tegn)
+2. E-mail (max 200 ord, med emnefelt)
+3. Tekst til Mit Nykredit-besked (max 350 ord, der også forklarer
+   "hvad betyder det for mig")
+
+For alle tre: behold faktuelle tal præcise, brug almindeligt dansk,
+undgå "vi gør opmærksom på" og lignende myndighedsformuleringer.
+Slutformulering skal pege på, hvor kunden kan få svar.` },
+
+{ id: "D30", cat: "Kommunikation", type: "DEEP", title: "Intern kommunikation til intranet", text: `ROLLE: Du er min skriveassistent med erfaring i intern kommunikation.
+
+KONTEKST: Jeg arbejder i Nykredit og skal lægge en nyhed på intranettet
+om [emne — fx ny proces / organisationsændring / ny politik / ny
+samarbejdspartner]. Mine vigtigste pointer:
+
+[INDSÆT STIKORD]
+
+Målgruppen er [bredt / specifik afdeling / ledere].
+
+METODE: Skriv et udkast på maks 350 ord med:
+1. En overskrift der ikke kunne være på enhver virksomheds intranet
+2. Ingress (2-3 linjer der fortæller "hvad er det og hvorfor det
+   betyder noget for dig")
+3. Brødtekst med 3 underafsnit (hvad / hvorfor / hvad nu)
+4. Afslutning med konkret CTA — hvad skal læseren gøre eller vide?
+
+Tone: voksen og direkte. Undgå "vi er stolte af at kunne meddele"-
+indledninger.` },
+
+{ id: "D31", cat: "Kommunikation", type: "DEEP", title: "LinkedIn-opslag for medarbejder", text: `ROLLE: Du er min skriveassistent med erfaring i LinkedIn-tone for
+finansielle fagfolk.
+
+KONTEKST: Jeg er [rolle] i Nykredit. Jeg vil dele [emne — fx en
+faglig pointe fra et kundemøde / en refleksion fra en konference /
+et synspunkt på et aktuelt emne]. Mine tre vigtigste pointer:
+
+[INDSÆT POINTER]
+
+METODE: Skriv tre forskellige versioner af samme opslag (alle 100-150 ord):
+1. Personlig refleksion (jeg-form, en konkret oplevelse som krog)
+2. Faglig observation (én klar pointe, lille modstykke til en gængs
+   antagelse)
+3. Spørgsmål-format (åbner en dialog)
+
+Alle tre: ingen emojis i overdreven mængde, ingen "Thoughts? 👇",
+ingen humblebrag. Slut med ét spørgsmål eller en åben observation,
+ikke en CTA.` },
+
+{ id: "D32", cat: "Kommunikation", type: "DEEP", title: "Pressemeddelelse — første udkast", text: `ROLLE: Du er min skriveassistent med erfaring i dansk finansiel
+pressekommunikation.
+
+KONTEKST: Jeg arbejder i Nykredits kommunikation og skal lave et udkast
+til pressemeddelelse om [emne — fx nyt produkt / partnerskab / kvartals-
+resultat / analyserapport]. Vigtigste fakta:
+
+[INDSÆT FAKTA, TAL, CITATER]
+
+Målgruppe: [fagpresse / mainstream / faglige medier].
+
+METODE: Skriv et udkast struktureret som:
+1. Overskrift (maks 12 ord, faktuel — ingen "Nykredit lancerer
+   banebrydende...")
+2. Underrubrik (1 linje med næste-vigtigste fakta)
+3. Ingress (3-5 linjer med 5W'er)
+4. Brødtekst i 3 afsnit
+5. Citat fra [navn, titel] — formulér det troværdigt og fagligt
+6. Afsluttende faktaboks om Nykredit (3 linjer)
+
+Tone: nøgtern og faktuel. Markér hvor jeg skal indsætte tal jeg ikke
+har givet dig.` },
+
+{ id: "Q15", cat: "Kommunikation", type: "QUICK", title: "Ret stavefejl og vis rettelser", text: `Ret stavefejl og kommatering i denne tekst, men list samtidig i en tabel hvad du har rettet og hvorfor.` },
+
+{ id: "Q16", cat: "Kommunikation", type: "QUICK", title: "Gør mail 30% kortere", text: `Gør denne mail 30 % kortere uden at miste pointer eller den venlige tone.` },
+
+{ id: "Q17", cat: "Kommunikation", type: "QUICK", title: "Skift tone fra formel til varm", text: `Skift tonen i denne tekst fra formel og myndighedsagtig til varm og personlig — uden at ændre indholdet.` },
+
+{ id: "Q18", cat: "Kommunikation", type: "QUICK", title: "Find passive sætninger", text: `Find alle passive sætninger i denne tekst og foreslå aktive alternativer i en før/efter-tabel.` },
+
+{ id: "Q19", cat: "Kommunikation", type: "QUICK", title: "Oversæt til engelsk i bank-tone", text: `Oversæt denne tekst til engelsk i en professionel dansk bank-tone — undgå amerikanismer som "exciting", "leverage" og "going forward".` },
+
+{ id: "Q20", cat: "Kommunikation", type: "QUICK", title: "Tre emnefelter til mail", text: `Foreslå tre forskellige emnefelter til denne mail: et nøgternt, et nysgerrigt, og et der signalerer hastighed.` },
+
+{ id: "Q21", cat: "Kommunikation", type: "QUICK", title: "Tre afslutninger i tre toner", text: `Skriv tre afslutninger på denne tekst i tre toner: faktuel, varm og handlingsorienteret.` },
+
+{ id: "Q22", cat: "Kommunikation", type: "QUICK", title: "Find fagudtryk og foreslå hverdagssprog", text: `Find fagudtryk og bank-jargon i denne tekst og foreslå hverdagssprog-alternativer i en tabel.` },
+
+{ id: "Q23", cat: "Kommunikation", type: "QUICK", title: "Komprimer til fem bullets", text: `Komprimer denne tekst til max 5 bullets — én pointe pr. bullet, max 15 ord.` },
+
+{ id: "Q24", cat: "Kommunikation", type: "QUICK", title: "Bullets til sammenhængende tekst", text: `Gør disse bullets til en sammenhængende tekst på max 200 ord uden at miste informationer.` },
+
+{ id: "Q25", cat: "Kommunikation", type: "QUICK", title: "Out-of-office i kort menneskelig tone", text: `Skriv min out-of-office i en kort og menneskelig tone — uden "Tak for din mail" og uden "vil blive besvaret hurtigst muligt".` },
+
+{ id: "Q26", cat: "Kommunikation", type: "QUICK", title: "Tre LinkedIn-bios i tre længder", text: `Lav tre forskellige LinkedIn-bios til min profil i tre længder: kort (én linje), mellem (3 linjer), længere (max 5 linjer).` },
+
+// ============ MØDER & DOKUMENTER (4 DEEP + 4 QUICK) ============
+{ id: "D33", cat: "Møder & dokumenter", type: "DEEP", title: "Mødereferat fra stikord", text: `ROLLE: Du er min mødereferent med god struktursans.
+
+KONTEKST: Jeg har lige holdt et møde om [emne, deltagere]. Her er mine
+stikord/transskription/Teams-noter:
+
+[INDSÆT NOTER]
+
+METODE: Lav et mødereferat struktureret som:
+1. Mødetitel, dato, deltagere (markér hvis nogen mangler)
+2. Beslutninger (kortest muligt, én linje pr. beslutning)
+3. Aftaler / actions (Hvem / Hvad / Hvornår — som tabel)
+4. Drøftelser uden konklusion (kort, så vi husker dem næste gang)
+5. Næste skridt og næste møde
+
+Maks 1 A4-side. Hvis mine stikord er uklare, skriv [USIKKERT — bekræft]
+i stedet for at gætte. Marker også [INTERN KILDE NØDVENDIG] hvis der
+mangler oplysninger jeg skal indhente.` },
+
+{ id: "D34", cat: "Møder & dokumenter", type: "DEEP", title: "Mødeagenda til komplekst tværgående møde", text: `ROLLE: Du er min sparringspartner med erfaring i mødefacilitering.
+
+KONTEKST: Jeg skal facilitere et møde i Nykredit om [emne]. Deltagere:
+[liste over funktioner — fx kredit, jura, IT, forretning, risk]. Mødet
+skal bruges til [formål — informere / beslutte / brainstorme / koordinere].
+Tid til rådighed: [varighed].
+
+METODE: Foreslå en agenda struktureret som:
+1. Mødeformål i én sætning (så alle ved hvorfor de er her)
+2. Tidsboks-agenda med konkrete poster og ejer for hvert punkt
+3. Hvilken type beslutning skal vi nå frem til (informeret /
+   konsulterende / besluttende)?
+4. Forberedelse jeg bør bede deltagerne læse før mødet
+5. To risici for at mødet sporer af, og hvordan jeg styrer dem
+
+Vær realistisk om hvad der kan nås på den givne tid. Foreslå hellere
+færre men afklarede punkter end en lang ønskeliste.` },
+
+{ id: "D35", cat: "Møder & dokumenter", type: "DEEP", title: "Beslutningsmateriale til styregruppe", text: `ROLLE: Du er min skriveassistent med erfaring i beslutningsoplæg til
+ledelse og styregrupper.
+
+KONTEKST: Jeg er [projektleder / specialist / leder] i Nykredit og skal
+lave et beslutningsoplæg til styregruppen om [emne]. Mine rå noter,
+data og indstilling:
+
+[INDSÆT MATERIALE]
+
+METODE: Skriv et oplæg på maks 2 A4-sider struktureret som:
+1. Beslutning der søges (én præcis sætning)
+2. Resumé (3-5 punkter — det styregruppen skal vide hvis de kun
+   læser én sektion)
+3. Baggrund og kontekst (kort)
+4. Vurdering — to-tre alternativer med pro/con-tabel
+5. Indstilling og begrundelse
+6. Konsekvenser (økonomi, ressourcer, risici, tidsplan)
+7. Næste skridt
+
+Tone: nøgtern og beslutningsorienteret. Markér [USIKKERT] eller
+[ANTAGELSE] hvor mine data er tynde.` },
+
+{ id: "D36", cat: "Møder & dokumenter", type: "DEEP", title: "Opsummér langt dokument", text: `ROLLE: Du er min researchassistent med god struktursans.
+
+KONTEKST: Jeg er [rolle] i Nykredit og har følgende dokument der skal
+opsummeres:
+
+[INDSÆT DOKUMENT — eller henvis i Copilot]
+
+Min specifikke interesse er [hvad jeg leder efter — fx beslutninger
+der påvirker min afdeling / risici / nye krav vi skal handle på].
+
+METODE: Lav en opsummering struktureret i tre lag, så jeg kan vælge
+hvor dybt jeg skal læse:
+1. TL;DR — én sætning
+2. De 5 vigtigste pointer (hvert maks to linjer)
+3. Konsekvenser for min specifikke interesse (3-5 punkter)
+
+Tilføj til sidst:
+- Tre spørgsmål dokumentet rejser uden at besvare
+- Hvad dokumentet ikke dækker (potentielle blinde vinkler)
+
+Maks 400 ord i alt. Ingen indledning.` },
+
+{ id: "Q27", cat: "Møder & dokumenter", type: "QUICK", title: "Interessentanalyse med power/interest", text: `Lav en interessentanalyse over dette projekt med en power/interest-matrix og forslag til håndtering af hver gruppe.` },
+
+{ id: "Q28", cat: "Møder & dokumenter", type: "QUICK", title: "Tabel: påstand / dokumentation", text: `Gør denne tekst til en tabel med to kolonner: påstand og dokumentation.` },
+
+{ id: "Q29", cat: "Møder & dokumenter", type: "QUICK", title: "A4 handout fra PowerPoint-noter", text: `Lav en 1 A4-side handout-version af mine PowerPoint-noter — kun det publikum skal kunne huske, ikke alt jeg vil sige.` },
+
+{ id: "Q30", cat: "Møder & dokumenter", type: "QUICK", title: "Mind map i tekstform", text: `Lav en mind map i tekstform (med indrykninger) over hovedtemaerne i dette dokument.` },
+
+// ============ PERSONLIG SPARRING (4 DEEP + 10 QUICK) ============
+{ id: "D37", cat: "Personlig sparring", type: "DEEP", title: "Forklar et komplekst koncept enkelt", text: `ROLLE: Du er min lærer der er virkelig god til at forklare komplekse
+emner i hverdagssprog.
+
+KONTEKST: Jeg arbejder i Nykredit og har stødt på begrebet [koncept —
+fx duration / convexity / IRBA / IFRS 9 / SREP / liquidity coverage ratio].
+Jeg har en idé, men vil gerne forstå det godt nok til at kunne forklare
+det til en kollega.
+
+METODE: Forklar det i fire lag:
+1. Eli5 — så et barn kan forstå det (én sætning)
+2. For en almindelig voksen (3 sætninger med en analogi)
+3. For en bankmedarbejder (5-7 linjer med fagudtryk korrekt brugt)
+4. Et eksempel på hvor det er praktisk relevant i Nykredit-kontekst
+
+Slut med tre spørgsmål jeg kan stille mig selv for at teste om jeg
+har forstået det rigtigt.` },
+
+{ id: "D38", cat: "Personlig sparring", type: "DEEP", title: "Brainstorm — vinkler på en udfordring", text: `ROLLE: Du er min sparringspartner. Du må gerne være kritisk og udfordre
+mine antagelser, ikke bare bekræfte dem.
+
+KONTEKST: Jeg står med følgende udfordring i mit arbejde i Nykredit:
+
+[BESKRIV UDFORDRING — symptomer, hvad jeg har prøvet, hvad jeg tror
+problemet er]
+
+METODE: Stil mig følgende:
+1. Tre spørgsmål jeg sandsynligvis ikke har stillet mig selv endnu
+2. To måder mit problem kan være anderledes end jeg tror
+3. Tre helt forskellige vinkler på løsninger (ikke bare variationer
+   over samme tema)
+4. Et eksempel på hvor en lignende udfordring er løst i en anden
+   branche
+
+Vær konkret. "Det afhænger" og "der findes flere muligheder" tæller
+ikke som svar.` },
+
+{ id: "D39", cat: "Personlig sparring", type: "DEEP", title: "Forbered et svært valg", text: `ROLLE: Du er min sparringspartner.
+
+KONTEKST: Jeg står over for et valg i mit arbejde/karriere i Nykredit:
+
+Valg A: [beskriv]
+Valg B: [beskriv]
+
+Mine vigtigste hensyn er [indsæt — fx økonomi, læring, balance,
+indflydelse, relationer].
+
+METODE: Hjælp mig med at strukturere overvejelsen:
+1. En pro/con-tabel for hvert valg (3-5 punkter pr. side)
+2. Hvilke af mine hensyn vægter forskelligt mellem A og B?
+3. Hvad ville et "skulle-jeg-have-vidst-noget"-spørgsmål være — altså
+   information der ville ændre billedet markant?
+4. Tre spørgsmål jeg bør stille mig selv før jeg vælger
+5. En modstrøm-betragtning: én grund til at det "rigtige" valg
+   måske er forkert
+
+Du behøver ikke konkludere for mig. Kvaliteten af spørgsmålene er
+vigtigere end et endeligt svar.` },
+
+{ id: "D40", cat: "Personlig sparring", type: "DEEP", title: "Strukturér min uge", text: `ROLLE: Du er min produktivitetscoach.
+
+KONTEKST: Jeg arbejder i Nykredit som [rolle]. Jeg har følgende store
+opgaver i denne uge:
+
+[LIST OPGAVER MED CA. ESTIMAT OG DEADLINE]
+
+Faste møder: [list dem]. Mine vigtigste prioriteter denne uge:
+[indsæt 1-3 prioriteter].
+
+METODE: Foreslå mig:
+1. En realistisk ugeplan struktureret efter dybtarbejde-blokke vs.
+   reaktivt arbejde (fx mails, korte spørgsmål)
+2. Hvilke 1-2 opgaver jeg sandsynligvis bør sige nej til eller udskyde
+3. Et "hvis jeg kun når én ting"-prioritet hver dag
+4. To realistiske tidsfælder jeg bør være opmærksom på
+5. En kort fredags-tjekliste på 3 punkter til at lukke ugen ordentligt
+
+Vær realistisk. Antag at noget vil gå anderledes end planlagt.` },
+
+{ id: "Q31", cat: "Personlig sparring", type: "QUICK", title: "SWOT med antagelser markeret", text: `Lav en SWOT-analyse på denne virksomhed og marker hvilke punkter der er antagelser jeg bør verificere.` },
+
+{ id: "Q32", cat: "Personlig sparring", type: "QUICK", title: "Pre-mortem: hvis projektet fejler", text: `Lav en pre-mortem: hvis dette projekt fejler om 12 måneder, hvad er så de fem mest sandsynlige årsager?` },
+
+{ id: "Q33", cat: "Personlig sparring", type: "QUICK", title: "Find logiske inkonsistenser", text: `Find tre logiske inkonsistenser eller modsigelser i dette dokument og citer dem ordret.` },
+
+{ id: "Q34", cat: "Personlig sparring", type: "QUICK", title: "Forklar som 13-årig", text: `Forklar dette begreb som om jeg er 13 år gammel — én sætning og én analogi.` },
+
+{ id: "Q35", cat: "Personlig sparring", type: "QUICK", title: "Sammenlign A og B i tabel", text: `Forklar forskellen på disse to ting i én sammenligningstabel med 5 dimensioner.` },
+
+{ id: "Q36", cat: "Personlig sparring", type: "QUICK", title: "Find nye begreber og forklar", text: `Find alle begreber i denne tekst som måske er nye for mig, og forklar hver i én linje.` },
+
+{ id: "Q37", cat: "Personlig sparring", type: "QUICK", title: "Quiz på fem spørgsmål", text: `Lav en quiz på fem spørgsmål med svar bagefter, så jeg kan teste om jeg har forstået denne tekst.` },
+
+{ id: "Q38", cat: "Personlig sparring", type: "QUICK", title: "Fem opfølgningsspørgsmål til tekst", text: `Lav fem opfølgningsspørgsmål til denne tekst som om jeg skulle interviewe forfatteren.` },
+
+{ id: "Q39", cat: "Personlig sparring", type: "QUICK", title: "Find huller i mit ræsonnement", text: `Find fem huller eller svage led i mit ræsonnement og prioritér dem efter alvor.` },
+
+{ id: "Q40", cat: "Personlig sparring", type: "QUICK", title: "Devil's advocate på anbefaling", text: `Spil devil's advocate på denne anbefaling — giv mig de tre stærkeste modargumenter.` },
+];
+
+// ============ APP LOGIC ============
+const CATEGORIES = [
+  "Kunderådgivning",
+  "Kreditvurdering",
+  "Investering",
+  "Jura & regulering",
+  "IT & udvikling",
+  "Ledelse & HR",
+  "Kommunikation",
+  "Møder & dokumenter",
+  "Personlig sparring"
+];
+
+let activeType = "all";
+let activeCategory = "all";
+let searchQuery = "";
+
+const els = {
+  search: document.getElementById('search'),
+  searchClear: document.getElementById('search-clear'),
+  typeFilters: document.getElementById('type-filters'),
+  catFilters: document.getElementById('category-filters'),
+  prompts: document.getElementById('prompts'),
+  resultsCount: document.getElementById('results-count'),
+  toast: document.getElementById('toast'),
+};
+
+// Render category filter pills
+function renderCategoryFilters() {
+  const allCount = PROMPTS.length;
+  let html = `<button class="pill active" data-cat="all">Alle <span class="count">${allCount}</span></button>`;
+  CATEGORIES.forEach(c => {
+    const count = PROMPTS.filter(p => p.cat === c).length;
+    html += `<button class="pill" data-cat="${c}">${c} <span class="count">${count}</span></button>`;
+  });
+  els.catFilters.innerHTML = html;
+
+  els.catFilters.querySelectorAll('.pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.cat;
+      els.catFilters.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    });
+  });
+}
+
+// Type filter listeners
+els.typeFilters.querySelectorAll('.pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeType = btn.dataset.type;
+    els.typeFilters.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  });
+});
+
+// Search
+els.search.addEventListener('input', (e) => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  els.searchClear.classList.toggle('visible', searchQuery.length > 0);
+  render();
+});
+els.searchClear.addEventListener('click', () => {
+  els.search.value = '';
+  searchQuery = '';
+  els.searchClear.classList.remove('visible');
+  els.search.focus();
+  render();
+});
+
+// Filter logic
+function filterPrompts() {
+  return PROMPTS.filter(p => {
+    if (activeType !== 'all' && p.type !== activeType) return false;
+    if (activeCategory !== 'all' && p.cat !== activeCategory) return false;
+    if (searchQuery) {
+      const haystack = (p.title + ' ' + p.cat + ' ' + p.text).toLowerCase();
+      if (!haystack.includes(searchQuery)) return false;
+    }
+    return true;
+  });
+}
+
+// Escape HTML
+function esc(s) {
+  return s.replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+// Highlight search query
+function highlight(text, query) {
+  if (!query) return esc(text);
+  const escaped = esc(text);
+  const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return escaped.replace(re, '<mark style="background:rgba(255,213,104,0.5);padding:0 2px;border-radius:2px;color:inherit">$1</mark>');
+}
+
+// Render prompts
+function render() {
+  const filtered = filterPrompts();
+  els.resultsCount.textContent = filtered.length === PROMPTS.length
+    ? `Viser ${filtered.length} af ${PROMPTS.length}`
+    : `Viser ${filtered.length} af ${PROMPTS.length} prompts`;
+
+  if (filtered.length === 0) {
+    els.prompts.innerHTML = `
+      <div class="empty">
+        <div class="empty-title">Ingen prompts matcher</div>
+        <div class="empty-text">Prøv at justere søgning eller filtre</div>
+      </div>`;
+    return;
+  }
+
+  els.prompts.innerHTML = filtered.map(p => `
+    <article class="card" data-type="${p.type}">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="type-badge">${p.type}</span>
+          <span class="id-tag">${p.id}</span>
+          <span>·</span>
+          <span class="cat-tag">${p.cat}</span>
+        </div>
+      </div>
+      <h2 class="card-title">${highlight(p.title, searchQuery)}</h2>
+      <div class="prompt-text">${highlight(p.text, searchQuery)}</div>
+      <div class="card-footer">
+        <button class="copy-btn" data-id="${p.id}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Kopiér prompt
+        </button>
+      </div>
+    </article>
+  `).join('');
+
+  // Attach copy listeners
+  els.prompts.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      const prompt = PROMPTS.find(p => p.id === id);
+      if (!prompt) return;
+      try {
+        await navigator.clipboard.writeText(prompt.text);
+      } catch (e) {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = prompt.text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg> Kopieret`;
+      showToast();
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Kopiér prompt`;
+      }, 1800);
+    });
+  });
+}
+
+// Toast
+let toastTimer;
+function showToast() {
+  els.toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2200);
+}
+
+// Init
+renderCategoryFilters();
+render();
+</script>
+
+</body>
+</html>
