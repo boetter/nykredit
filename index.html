@@ -631,16 +631,17 @@ body {
 /* ============ RESPONSIVE ============ */
 @media (max-width: 720px) {
   .hero {
-    padding: 28px 20px 24px;
+    padding: 24px 20px 22px;
   }
   .hero-inner {
-    gap: 20px;
+    gap: 16px;
   }
   .hero-eyebrow {
     margin-bottom: 10px;
   }
   .hero-title {
-    font-size: 30px;
+    font-size: 28px;
+    margin-bottom: 8px;
   }
   .hero-subtitle {
     font-size: 14px;
@@ -651,11 +652,46 @@ body {
   .hero-meta strong {
     font-size: 18px;
   }
+
+  /* Slim, single-row scrollable filter bar on mobile */
   .filter-bar {
-    padding: 14px 16px 12px;
+    padding: 10px 0 8px;
   }
+  .filter-inner {
+    gap: 8px;
+  }
+  .search-wrap {
+    margin: 0 16px;
+  }
+  .search-input {
+    padding: 11px 14px 11px 40px;
+    font-size: 14px;
+  }
+  .search-wrap svg {
+    left: 14px;
+  }
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 16px;
+    margin: 0 -16px;
+    gap: 6px;
+  }
+  .filters::-webkit-scrollbar { display: none; }
+  .filters .pill {
+    flex-shrink: 0;
+    padding: 6px 11px;
+    font-size: 12.5px;
+  }
+  .results-count {
+    padding: 0 16px;
+    font-size: 10px;
+  }
+
   .prompts {
-    padding: 24px 16px 64px;
+    padding: 20px 16px 64px;
     gap: 12px;
     grid-template-columns: 1fr;
   }
