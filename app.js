@@ -44,9 +44,15 @@
   const grid = document.getElementById("grid");
   const resultsCount = document.getElementById("results-count");
   const clearAllButton = document.getElementById("clear-all");
-  const filterPanel = document.getElementById("filter-panel");
-  const filterToggle = document.getElementById("filter-toggle");
-  const filterToggleLabel = document.getElementById("filter-toggle-label");
+  const panel = document.getElementById("filter-panel");
+  const backdrop = document.getElementById("panel-backdrop");
+  const toolbar = document.getElementById("toolbar");
+  const toolbarInner = document.getElementById("toolbar-inner");
+  const activeChips = document.getElementById("active-chips");
+  const infoButton = document.getElementById("info-btn");
+  const infoPanel = document.getElementById("info-panel");
+  const mobileQuery = window.matchMedia("(max-width: 720px)");
+  let panelOpener = null;
 
   function escapeHtml(value) {
     return String(value)
@@ -138,7 +144,7 @@
     const counts = countValues("example");
     container.innerHTML = EXAMPLES.map(example => {
       const active = state.examples.includes(example.id);
-      return `<button class="cat-btn${active ? " active" : ""}" type="button" data-example="${example.id}" aria-pressed="${active}" aria-label="${example.num} ${escapeHtml(example.label)}"><span class="cat-num">${example.num}</span>${escapeHtml(example.label)} <span class="cat-count">${counts[example.id] || 0}</span></button>`;
+      return `<button class="ex-btn${active ? " active" : ""}" type="button" data-example="${example.id}" aria-pressed="${active}" aria-label="${example.num} ${escapeHtml(example.label)}, ${counts[example.id] || 0} prompts"><span class="ex-num" aria-hidden="true">${example.num}</span><span class="ex-label" aria-hidden="true">${escapeHtml(example.label)}</span><span class="ex-count" aria-hidden="true">${counts[example.id] || 0}</span></button>`;
     }).join("");
 
     container.querySelectorAll("[data-example]").forEach(button => {
@@ -205,10 +211,10 @@
 
   function renderTypeCounts() {
     const base = prompts.filter(prompt => matchesFilters(prompt, { ignoreType: true }));
-    document.getElementById("count-all").textContent = base.length;
+    document.querySelectorAll('[data-count="all"]').forEach(target => { target.textContent = base.length; });
     TYPES.forEach(type => {
-      const target = document.getElementById(`count-${type}`);
-      if (target) target.textContent = base.filter(prompt => prompt.type === type).length;
+      const n = base.filter(prompt => prompt.type === type).length;
+      document.querySelectorAll(`[data-count="${type}"]`).forEach(target => { target.textContent = n; });
     });
 
     document.querySelectorAll(".type-btn").forEach(button => {
@@ -221,6 +227,7 @@
   function renderCards() {
     const filtered = catalogPrompts.filter(prompt => matchesFilters(prompt));
     resultsCount.textContent = filtered.length;
+    document.querySelectorAll('[data-count="results"]').forEach(target => { target.textContent = filtered.length; });
 
     if (!filtered.length) {
       grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="empty-mark" aria-hidden="true">—</div><div class="empty-text">Ingen match</div><div class="empty-sub">Prøv et andet søgeord eller ryd filtrene.</div></div>`;
@@ -232,7 +239,7 @@
       const contentId = `content-${prompt.id}`;
       const titleId = `title-${prompt.id}`;
       const example = prompt.example && exampleById[prompt.example]
-        ? `<span class="example-tag" title="Fra dagen: ${escapeHtml(exampleLabel(prompt.example, true))}">${escapeHtml(exampleLabel(prompt.example))}</span>`
+        ? `<button class="example-tag" type="button" data-pick-example="${escapeHtml(prompt.example)}" title="Vis alle prompts fra ${escapeHtml(exampleLabel(prompt.example, true))}">${escapeHtml(exampleLabel(prompt.example))}</button>`
         : "";
       const field = prompt.field && prompt.field !== "På tværs"
         ? `<span class="card-field">${escapeHtml(prompt.field)}</span>`
@@ -279,6 +286,13 @@
     });
     grid.querySelectorAll(".btn-toggle").forEach(button => {
       button.addEventListener("click", () => togglePrompt(button));
+    });
+    grid.querySelectorAll("[data-pick-example]").forEach(button => {
+      button.addEventListener("click", () => {
+        state.examples = [button.dataset.pickExample];
+        render();
+        scrollToResults();
+      });
     });
   }
 
@@ -357,12 +371,44 @@
     toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2400);
   }
 
+  const GROUP_STATE = { example: "examples", category: "categories", field: "fields" };
+
   function updateFilterSummary() {
-    const activeCount = state.examples.length + state.categories.length + state.fields.length;
-    clearAllButton.hidden = !(activeCount || state.search || state.type !== "all");
-    if (filterPanel.classList.contains("open")) filterToggleLabel.textContent = "Skjul filtre";
-    else if (activeCount) filterToggleLabel.textContent = `Filtre (${activeCount})`;
-    else filterToggleLabel.textContent = "Vis filtre";
+    const groupCounts = {
+      example: state.examples.length,
+      category: state.categories.length,
+      field: state.fields.length
+    };
+    const typeActive = state.type !== "all" ? 1 : 0;
+    // På mobil ligger typevalget i arket, så det tæller med dér
+    groupCounts.all = groupCounts.example + groupCounts.category + groupCounts.field + (mobileQuery.matches ? typeActive : 0);
+
+    document.querySelectorAll("[data-n]").forEach(badge => {
+      const n = groupCounts[badge.dataset.n] || 0;
+      badge.textContent = n;
+      badge.hidden = !n;
+      badge.closest(".dd-btn")?.classList.toggle("har-valg", n > 0);
+    });
+
+    const chips = [];
+    if (typeActive) chips.push({ kind: "type", value: state.type, label: TYPE_LABELS[state.type] });
+    state.examples.forEach(value => chips.push({ kind: "example", value, label: exampleLabel(value, true) }));
+    state.categories.forEach(value => chips.push({ kind: "category", value, label: value }));
+    state.fields.forEach(value => chips.push({ kind: "field", value, label: value }));
+    activeChips.innerHTML = chips.map((chip, index) =>
+      `<button class="chip-x" type="button" data-chip="${index}" aria-label="Fjern filteret ${escapeHtml(chip.label)}">${escapeHtml(chip.label)}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`
+    ).join("");
+    activeChips.querySelectorAll("[data-chip]").forEach(button => {
+      button.addEventListener("click", () => {
+        const chip = chips[Number(button.dataset.chip)];
+        if (chip.kind === "type") state.type = "all";
+        else toggleSelection(state[GROUP_STATE[chip.kind]], chip.value);
+        render();
+        (activeChips.querySelector("[data-chip]") || searchInput).focus();
+      });
+    });
+
+    clearAllButton.hidden = !(chips.length || state.search);
   }
 
   function render(focusValue, focusKind) {
@@ -387,7 +433,7 @@
     button.addEventListener("click", () => {
       state.type = button.dataset.type;
       render();
-      button.focus();
+      button.focus({ preventScroll: true });
     });
   });
 
@@ -402,17 +448,111 @@
     searchInput.focus();
   });
 
-  filterToggle.addEventListener("click", () => {
-    const open = filterPanel.classList.toggle("open");
-    filterToggle.setAttribute("aria-expanded", String(open));
+  // Rul til starten af resultaterne – men kun hvis man er rullet forbi dem
+  function scrollToResults() {
+    const main = document.getElementById("bibliotek");
+    const top = main.getBoundingClientRect().top + window.scrollY - toolbar.offsetHeight;
+    if (window.scrollY > top) window.scrollTo({ top });
+  }
+
+  // ---- Foldede filtre: ét panel, der viser den gruppe, man klikker på ----
+  function placePanel(opener) {
+    if (mobileQuery.matches) { panel.style.left = ""; return; }
+    const group = panel.dataset.show;
+    if (group === "all") { panel.style.left = ""; return; }
+    const box = toolbarInner.getBoundingClientRect();
+    const btn = opener.getBoundingClientRect();
+    const pad = parseFloat(getComputedStyle(toolbarInner).paddingLeft) || 0;
+    const max = box.width - pad - panel.offsetWidth;
+    panel.style.left = `${Math.max(pad, Math.min(btn.left - box.left, max))}px`;
+  }
+
+  function openPanel(opener) {
+    const group = opener.dataset.group;
+    closeInfo();
+    document.querySelectorAll(".dd-btn").forEach(button => button.setAttribute("aria-expanded", "false"));
+    panel.dataset.show = group;
+    panel.hidden = false;
+    backdrop.hidden = !mobileQuery.matches;
+    document.body.style.overflow = mobileQuery.matches ? "hidden" : "";
+    opener.setAttribute("aria-expanded", "true");
+    panelOpener = opener;
+    placePanel(opener);
+    const visible = Array.from(panel.querySelectorAll(".panel-group")).find(section => getComputedStyle(section).display !== "none");
+    (visible?.querySelector("button.active") || visible?.querySelector("button"))?.focus({ preventScroll: true });
+  }
+
+  function closePanel(returnFocus) {
+    if (panel.hidden) return;
+    panel.hidden = true;
+    backdrop.hidden = true;
+    document.body.style.overflow = "";
+    document.querySelectorAll(".dd-btn").forEach(button => button.setAttribute("aria-expanded", "false"));
+    if (returnFocus && panelOpener) panelOpener.focus();
+    panelOpener = null;
+  }
+
+  document.querySelectorAll(".dd-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      const isOpen = !panel.hidden && panel.dataset.show === button.dataset.group;
+      if (isOpen) closePanel(false);
+      else openPanel(button);
+    });
+  });
+  panel.querySelectorAll("[data-close]").forEach(button => {
+    button.addEventListener("click", () => {
+      closePanel(true);
+      scrollToResults();
+    });
+  });
+  backdrop.addEventListener("click", () => closePanel(false));
+  document.getElementById("panel-clear").addEventListener("click", () => {
+    const group = panel.dataset.show;
+    if (GROUP_STATE[group]) state[GROUP_STATE[group]] = [];
+    else { state.examples = []; state.categories = []; state.fields = []; if (mobileQuery.matches) state.type = "all"; }
+    render();
+  });
+
+  // ---- "Sådan"-boksen ----
+  function closeInfo() {
+    infoPanel.hidden = true;
+    infoButton.setAttribute("aria-expanded", "false");
+  }
+  infoButton.addEventListener("click", () => {
+    const open = infoPanel.hidden;
+    if (open) closePanel(false);
+    infoPanel.hidden = !open;
+    infoButton.setAttribute("aria-expanded", String(open));
+  });
+
+  document.addEventListener("click", event => {
+    const target = event.target;
+    if (!target.isConnected) return;   // knappen blev tegnet om
+    if (!panel.hidden && !panel.contains(target) && !target.closest(".dd-btn") && !mobileQuery.matches) closePanel(false);
+    if (!infoPanel.hidden && !infoPanel.contains(target) && !infoButton.contains(target)) closeInfo();
+  });
+  window.addEventListener("resize", () => {
+    if (!panel.hidden && panelOpener) {
+      if (!panelOpener.getClientRects().length) closePanel(false);
+      else placePanel(panelOpener);
+    }
     updateFilterSummary();
   });
+
+  // Skygge under værktøjslinjen, når den klæber
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      toolbar.classList.toggle("stuck", !entry.isIntersecting);
+    }).observe(document.querySelector(".masthead"));
+  }
 
   document.addEventListener("keydown", event => {
     if (event.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
       event.preventDefault();
       searchInput.focus();
     }
+    if (event.key === "Escape" && !panel.hidden) { closePanel(true); return; }
+    if (event.key === "Escape" && !infoPanel.hidden) { closeInfo(); infoButton.focus(); return; }
     if (event.key === "Escape" && document.activeElement === searchInput) {
       searchInput.value = "";
       state.search = "";
@@ -420,6 +560,14 @@
       searchInput.blur();
     }
   });
+
+  // Kortere pladsholder på mobil
+  const fullPlaceholder = searchInput.placeholder;
+  function setPlaceholder() {
+    searchInput.placeholder = mobileQuery.matches ? "Søg, fx mail …" : fullPlaceholder;
+  }
+  mobileQuery.addEventListener?.("change", () => { setPlaceholder(); closePanel(false); });
+  setPlaceholder();
 
   document.getElementById("total-count").textContent = prompts.length;
   render();

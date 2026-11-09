@@ -60,86 +60,158 @@
   }
   ::selection { background: var(--gul); color: var(--hav); }
 
-  /* === Header ========================================================== */
-  header {
-    background: rgba(246, 244, 243, 0.94);
-    border-bottom: 1px solid var(--line);
-    position: sticky; top: 0; z-index: 100;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-  .header-inner { max-width: 1280px; margin: 0 auto; padding: 22px 32px 18px; }
-  .header-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 14px; }
-  .brand { display: flex; align-items: center; gap: 20px; min-width: 0; }
+  /* === Top: smal titellinje ========================================== */
+  .wrap { max-width: 1280px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+  .masthead { background: var(--page); }
+  .masthead-inner { display: flex; align-items: center; gap: 18px; padding-top: 18px; padding-bottom: 14px; position: relative; }
   .brand-logo { display: inline-flex; align-items: center; text-decoration: none; line-height: 1; flex: 0 0 auto; }
-  .brand-logo img { height: 24px; width: auto; display: block; }
-  .brand-divider { width: 1px; height: 40px; background: var(--line-2); flex: 0 0 auto; }
-  .brand-meta { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
-  .brand-title { font-size: 26px; font-weight: 400; color: var(--hav); letter-spacing: 0; line-height: 1.15; }
-  .brand-sub { font-size: 13px; color: var(--ink-3); font-weight: 400; margin-top: 5px; }
-  .brand-sub b { color: var(--horisont); font-weight: 500; }
-
-  .meta { text-align: right; color: var(--ink-3); font-size: 13px; line-height: 1.25; flex: 0 0 auto; }
-  .meta strong { display: block; color: var(--horisont); font-weight: 400; font-size: 34px; line-height: 1; margin-bottom: 4px; }
-
-  .intro { font-size: 15px; color: var(--ink-2); max-width: 1000px; margin: 0 0 14px; line-height: 1.5; }
-  .intro strong { color: var(--hav); font-weight: 500; }
-
-  .search-wrap { position: relative; margin-bottom: 6px; }
-  .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
-  #search {
-    width: 100%; font-family: inherit;
-    font-size: 16px; padding: 13px 18px 13px 48px;
-    border: 1px solid var(--line-2); background: var(--card);
-    color: var(--hav); border-radius: var(--radius-pill); outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
+  .brand-logo img { height: 22px; width: auto; display: block; }
+  .brand-divider { width: 1px; height: 34px; background: var(--line-2); flex: 0 0 auto; }
+  .brand-meta { min-width: 0; flex: 1 1 auto; }
+  .brand-title { font-size: 22px; font-weight: 500; color: var(--hav); letter-spacing: -0.01em; line-height: 1.15; }
+  .brand-sub { font-size: 13.5px; color: var(--ink-3); margin-top: 3px; line-height: 1.3; }
+  .brand-sub b { color: var(--hav); font-weight: 500; }
+  .masthead-side { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
+  .safety-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--hav); padding: 6px 12px 6px 10px; border-radius: var(--radius-pill); background: var(--card); border: 1px solid var(--line); }
+  .safety-pill svg, .info-safety svg { flex: 0 0 auto; color: var(--horisont); }
+  .info-btn { font-family: inherit; font-size: 13px; font-weight: 500; color: var(--horisont); background: transparent; border: 1px solid var(--line-2); border-radius: var(--radius-pill); padding: 6px 12px 6px 9px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .info-btn:hover, .info-btn[aria-expanded="true"] { background: var(--primaer-50); border-color: var(--primaer-50); }
+  .info-panel {
+    position: absolute; right: 32px; top: calc(100% - 4px); z-index: 160; width: min(460px, calc(100vw - 32px));
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-card);
+    box-shadow: 0 18px 48px rgba(7, 9, 74, 0.16); padding: 20px 22px; font-size: 14px; color: var(--ink-2); line-height: 1.5;
   }
-  #search:focus { border-color: var(--horisont); box-shadow: 0 0 0 3px var(--primaer-50); }
-  #search::placeholder { color: var(--ink-3); }
-
-  .hint { font-size: 13px; color: var(--ink-3); padding-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
-  .hint-item { display: inline-flex; align-items: center; gap: 7px; }
+  .info-panel[hidden] { display: none; }
+  .info-panel strong { color: var(--hav); font-weight: 500; }
+  .info-panel p + p, .info-panel p + ul, .info-panel ul + p { margin-top: 12px; }
+  .legend { list-style: none; display: grid; gap: 7px; }
+  .legend li { display: flex; align-items: baseline; gap: 9px; }
+  .legend .mini-badge { flex: 0 0 52px; text-align: center; }
+  .info-safety { display: flex; gap: 8px; align-items: flex-start; color: var(--hav); }
+  .info-safety svg { margin-top: 3px; }
+  .info-small { font-size: 12.5px; color: var(--ink-3); }
+  .info-small b { color: var(--hav); font-weight: 500; }
   .mini-badge { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; padding: 3px 8px; border-radius: var(--radius-pill); line-height: 1.2; }
   .mini-badge.m { background: var(--gul); color: var(--hav); }
   .mini-badge.q { background: var(--himmel); color: var(--hav); }
   .mini-badge.d { background: var(--hav); color: #FFFFFF; }
-  .kbd { font-family: var(--font-mono); font-size: 11px; padding: 1px 6px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--card); color: var(--ink-2); }
+  .kbd { font-family: inherit; font-size: 11.5px; padding: 0 6px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--card); color: var(--ink-3); line-height: 1.6; }
   .hint-bracket { font-style: normal; color: var(--horisont); background: var(--primaer-50); padding: 1px 6px; border-radius: 6px; font-weight: 500; }
-  .desktop-only { margin-left: auto; }
 
-  /* === Filtre ========================================================== */
-  .filters { max-width: 1280px; margin: 0 auto; padding: 4px 32px 20px; }
-  .filter-section { margin-top: 16px; }
-  .filter-label { font-size: 14px; color: var(--hav); font-weight: 500; margin-bottom: 9px; }
-  .filter-label small { font-size: 13px; font-weight: 400; color: var(--ink-3); margin-left: 6px; }
+  /* === Værktøjslinjen: søg, type og foldede filtre – klæber i toppen ===== */
+  .toolbar {
+    position: sticky; top: 0; z-index: 120;
+    background: rgba(246, 244, 243, 0.92);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .toolbar.stuck { border-bottom-color: var(--line); box-shadow: 0 6px 20px rgba(7, 9, 74, 0.05); }
+  .toolbar-inner { display: flex; align-items: center; gap: 10px; padding-top: 10px; padding-bottom: 10px; position: relative; }
 
-  .type-filters { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); background: var(--card); border-radius: var(--radius-pill); width: fit-content; }
-  .type-btn { font-family: inherit; font-size: 14px; font-weight: 400; padding: 8px 18px; border: none; background: transparent; color: var(--ink-2); cursor: pointer; border-radius: var(--radius-pill); transition: background 0.15s, color 0.15s; white-space: nowrap; }
+  .search-wrap { position: relative; flex: 1 1 260px; min-width: 0; }
+  .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+  #search {
+    width: 100%; font-family: inherit; font-size: 15.5px; height: 44px; padding: 0 44px 0 44px;
+    border: 1px solid var(--line-2); background: var(--card); color: var(--hav);
+    border-radius: var(--radius-pill); outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  #search:focus { border-color: var(--horisont); box-shadow: 0 0 0 3px var(--primaer-50); }
+  #search:focus-visible { outline: none; }
+  #search::placeholder { color: var(--ink-3); }
+  .search-kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+  #search:focus ~ .search-kbd, #search:not(:placeholder-shown) ~ .search-kbd { display: none; }
+
+  .type-filters { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); background: var(--card); border-radius: var(--radius-pill); flex: 0 0 auto; height: 44px; align-items: center; }
+  .type-btn { font-family: inherit; font-size: 14px; font-weight: 400; padding: 0 14px; height: 36px; border: none; background: transparent; color: var(--ink-2); cursor: pointer; border-radius: var(--radius-pill); transition: background 0.15s, color 0.15s; white-space: nowrap; }
   .type-btn:hover { background: var(--primaer-50); color: var(--horisont); }
   .type-btn.active { background: var(--horisont); color: #FFFFFF; }
-  .type-btn .count { font-size: 12px; margin-left: 5px; opacity: 0.7; }
+  .type-btn .count { font-size: 12px; margin-left: 4px; opacity: 0.7; font-variant-numeric: tabular-nums; display: inline-block; min-width: 2.2ch; text-align: left; }
 
-  .cat-toggle { display: none; align-items: center; gap: 7px; font-family: inherit; font-size: 14px; font-weight: 400; padding: 8px 14px; background: var(--card); border: 1px solid var(--line-2); color: var(--hav); border-radius: var(--radius-pill); cursor: pointer; }
-  .cat-toggle:hover { border-color: var(--horisont); color: var(--horisont); }
-  .cat-toggle-chev { transition: transform 0.2s; }
-  .cat-toggle[aria-expanded="true"] .cat-toggle-chev { transform: rotate(180deg); }
+  .dd-row { display: flex; gap: 8px; flex: 0 0 auto; }
+  .dd-btn {
+    font-family: inherit; font-size: 14px; font-weight: 400; height: 44px; padding: 0 14px 0 16px;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    background: var(--card); border: 1px solid var(--line-2); color: var(--hav); border-radius: var(--radius-pill); cursor: pointer;
+    transition: border-color 0.12s, background 0.12s, color 0.12s;
+  }
+  .dd-btn:hover { border-color: var(--horisont); color: var(--horisont); }
+  .dd-btn[aria-expanded="true"] { border-color: var(--horisont); box-shadow: 0 0 0 3px var(--primaer-50); }
+  .dd-btn.har-valg { border-color: var(--horisont); color: var(--horisont); font-weight: 500; }
+  .dd-n { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--horisont); color: #FFFFFF; font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; }
+  .dd-n[hidden] { display: none; }
+  .dd-chev { transition: transform 0.2s; color: var(--ink-3); }
+  .dd-btn[aria-expanded="true"] .dd-chev { transform: rotate(180deg); }
+  .filter-btn-all { display: none; }
+
+  /* Filterpanelet folder ud under knappen */
+  .panel {
+    position: absolute; top: calc(100% - 2px); left: 32px; z-index: 150;
+    width: min(640px, calc(100% - 64px)); max-height: calc(100vh - 120px); overflow: auto; overscroll-behavior: contain;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-card);
+    box-shadow: 0 22px 56px rgba(7, 9, 74, 0.18); padding: 18px 20px 14px;
+  }
+  .panel[hidden] { display: none; }
+  .panel[data-show="example"] { width: min(700px, calc(100% - 64px)); }
+  .panel[data-show="field"] { width: min(500px, calc(100% - 64px)); }
+  .panel[data-show="all"] { width: calc(100% - 64px); }
+  .panel-group { display: none; }
+  .panel-group + .panel-group { margin-top: 18px; }
+  .panel[data-show="example"] .panel-group[data-group="example"],
+  .panel[data-show="category"] .panel-group[data-group="category"],
+  .panel[data-show="field"] .panel-group[data-group="field"],
+  .panel[data-show="all"] .panel-group:not([data-group="type"]) { display: block; }
+  .panel-title { font-size: 14px; font-weight: 500; color: var(--hav); margin-bottom: 10px; }
+  .panel-title small { font-size: 13px; font-weight: 400; color: var(--ink-3); margin-left: 6px; }
+  .panel-sheet-head { display: none; }
+  .panel-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+
+  /* De tolv fra dagen som fliser */
+  .ex-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .ex-btn {
+    font-family: inherit; text-align: left; cursor: pointer; position: relative;
+    padding: 10px 12px 11px; border-radius: 14px; border: 1px solid var(--line); background: var(--page); color: var(--hav);
+    display: flex; flex-direction: column; gap: 1px; transition: background 0.12s, border-color 0.12s, color 0.12s;
+  }
+  .ex-btn:hover { border-color: var(--horisont); }
+  .ex-num { font-size: 20px; font-weight: 500; color: var(--horisont); line-height: 1.1; letter-spacing: -0.01em; }
+  .ex-label { font-size: 14px; line-height: 1.25; }
+  .ex-count { position: absolute; top: 10px; right: 12px; font-size: 12px; color: var(--ink-3); }
+  .ex-btn.active { background: var(--horisont); border-color: var(--horisont); color: #FFFFFF; }
+  .ex-btn.active .ex-num { color: var(--himmel); }
+  .ex-btn.active .ex-count { color: rgba(255, 255, 255, 0.75); }
 
   .cat-filters { display: flex; flex-wrap: wrap; gap: 7px; }
-  .cat-btn { font-family: inherit; font-size: 14px; font-weight: 400; padding: 7px 14px; background: var(--card); border: 1px solid var(--line); color: var(--hav); cursor: pointer; border-radius: var(--radius-pill); transition: background 0.12s, color 0.12s, border-color 0.12s; display: inline-flex; align-items: center; gap: 7px; line-height: 1.25; }
+  .cat-btn { font-family: inherit; font-size: 14px; font-weight: 400; padding: 7px 14px; background: var(--card); border: 1px solid var(--line-2); color: var(--hav); cursor: pointer; border-radius: var(--radius-pill); transition: background 0.12s, color 0.12s, border-color 0.12s; display: inline-flex; align-items: center; gap: 7px; line-height: 1.25; }
   .cat-btn:hover { border-color: var(--horisont); color: var(--horisont); }
   .cat-btn.active { background: var(--horisont); color: #FFFFFF; border-color: var(--horisont); }
   .cat-btn .cat-count { font-size: 12px; color: var(--ink-3); }
   .cat-btn.active .cat-count { color: rgba(255, 255, 255, 0.75); }
-  .cat-btn .cat-num { font-size: 12px; font-weight: 500; color: var(--horisont); }
-  .cat-btn.active .cat-num { color: var(--himmel); }
 
-  .clear-btn { font-family: inherit; font-size: 14px; padding: 6px 4px; background: transparent; border: none; color: var(--horisont); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+  /* Typevalg med forklaring (kun i mobilarket) */
+  .type-list { display: grid; gap: 8px; }
+  .type-opt { height: auto; width: 100%; text-align: left; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--page); display: flex; align-items: center; gap: 10px; white-space: normal; color: var(--hav); }
+  .type-opt .mini-badge { flex: 0 0 52px; text-align: center; }
+  .type-opt .type-txt { flex: 1 1 auto; font-size: 14px; line-height: 1.35; }
+  .type-opt .count { margin-left: 0; font-size: 12px; }
+  .type-opt.active { background: var(--horisont); border-color: var(--horisont); color: #FFFFFF; }
+
+  .panel-backdrop { position: fixed; inset: 0; z-index: 140; background: rgba(7, 9, 74, 0.32); }
+  .panel-backdrop[hidden] { display: none; }
+
+  .clear-btn { font-family: inherit; font-size: 14px; padding: 6px 4px; background: transparent; border: none; color: var(--horisont); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; white-space: nowrap; }
 
   /* === Kort ============================================================ */
-  main { max-width: 1280px; margin: 0 auto; padding: 18px 32px 64px; }
-  .results-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
-  .results-info { font-size: 14px; color: var(--ink-3); }
+  main { max-width: 1280px; margin: 0 auto; padding: 8px 32px 64px; }
+  .results-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin-bottom: 14px; min-height: 34px; }
+  .results-info { font-size: 14px; color: var(--ink-3); margin-right: 4px; }
   .results-info strong { color: var(--hav); font-weight: 500; }
+  .active-chips { display: contents; }
+  .chip-x {
+    font-family: inherit; font-size: 13px; font-weight: 500; color: var(--horisont); background: var(--primaer-50);
+    border: none; border-radius: var(--radius-pill); padding: 5px 8px 5px 12px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; line-height: 1.2;
+  }
+  .chip-x:hover { background: var(--primaer-100); }
+  .chip-x svg { opacity: 0.75; }
 
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 16px; }
   .card {
@@ -154,9 +226,10 @@
   .badge-quick { background: var(--himmel); color: var(--hav); }
   .badge-deep { background: var(--hav); color: #FFFFFF; }
   .example-tag {
-    font-size: 11.5px; line-height: 1.1; font-weight: 500; padding: 3px 9px;
+    font-family: inherit; font-size: 11.5px; line-height: 1.1; font-weight: 500; padding: 3px 9px; background: transparent; cursor: pointer;
     border: 1px solid var(--horisont); border-radius: var(--radius-pill); color: var(--horisont); white-space: nowrap;
   }
+  .example-tag:hover { background: var(--horisont); color: #FFFFFF; }
   .card-cat { font-size: 12.5px; color: var(--ink-3); }
   .card-field { font-size: 12px; padding: 3px 9px; border-radius: var(--radius-pill); background: var(--primaer-50); color: var(--horisont); line-height: 1.2; }
   .card-title { font-family: inherit; font-size: 21px; font-weight: 400; line-height: 1.25; letter-spacing: 0; margin-bottom: 8px; color: var(--hav); }
@@ -220,12 +293,7 @@
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
   }
-  .filter-toolbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
-  .filter-toolbar .filter-section { flex: 1; }
-  .filter-panel { display: block; }
   .clear-all[hidden] { display: none; }
-  .safety-hint { color: var(--hav); }
-  .safety-hint svg { flex: 0 0 auto; color: var(--horisont); }
   button:focus-visible, a:focus-visible, input:focus-visible {
     outline: 3px solid var(--lysblaa); outline-offset: 3px;
   }
@@ -234,43 +302,55 @@
     background: var(--card); color: var(--horisont); border-radius: var(--radius-card);
   }
 
-  /* === Mobil =========================================================== */
+  /* === Mellemstørrelse: ét "Filtre"-panel ============================== */
+  @media (max-width: 1179px) {
+    .dd-row { display: none; }
+    .filter-btn-all { display: inline-flex; }
+  }
+
+  /* === Mobil: smal top, søg + Filtre klæber, filtrene i et ark ========= */
   @media (max-width: 720px) {
-    header { position: static; backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--page); }
-    .header-inner, .filters, main { padding-left: 16px; padding-right: 16px; }
-    .header-inner { padding-top: 14px; padding-bottom: 14px; }
-    .header-top { margin-bottom: 10px; }
-    .meta { display: none; }
-    .brand { flex-wrap: wrap; gap: 8px 12px; }
-    .brand-divider { display: none; }
-    .brand-meta { flex-basis: 100%; }
-    .brand-logo img { height: 20px; }
-    .brand-title { font-size: 22px; }
-    .brand-sub { font-size: 12.5px; }
-    .intro { font-size: 14px; margin-bottom: 12px; }
-    .hint { font-size: 12.5px; gap: 8px 12px; }
-    .desktop-only { display: none !important; }
-    .safety-hint { flex-basis: 100%; }
-    .filter-toolbar { align-items: center; }
-    .filter-toolbar .filter-section { margin-top: 14px; }
-    .cat-toggle { display: inline-flex; }
-    .filter-panel { display: none; }
-    .filter-panel.open { display: block; }
+    .wrap, main { padding-left: 16px; padding-right: 16px; }
+    .masthead-inner { gap: 12px; padding-top: 14px; padding-bottom: 6px; }
+    .brand-logo img { height: 16px; }
+    .brand-divider { height: 30px; }
+    .brand-title { font-size: 18px; }
+    .brand-sub { font-size: 12.5px; margin-top: 1px; }
+    .sub-lang { display: none; }
+    .kun-tastatur { display: none; }
+    .safety-pill { display: none; }
+    .info-btn { padding: 6px; border-radius: 50%; }
+    .info-btn .info-txt { display: none; }
+    .info-panel { left: 16px; right: 16px; width: auto; top: calc(100% + 4px); }
+    .toolbar { background: var(--page); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .toolbar-inner { padding-top: 8px; padding-bottom: 8px; gap: 8px; }
+    .type-filters { display: none; }
+    .search-kbd { display: none; }
+    #search { font-size: 16px; padding-right: 16px; }
+    .filter-btn-all { padding: 0 14px; }
+
+    .panel, .panel[data-show] {
+      position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 86vh; max-height: 86dvh;
+      border-radius: 24px 24px 0 0; border: none; padding: 0 16px; box-shadow: 0 -12px 40px rgba(7, 9, 74, 0.2);
+    }
+    .panel[data-show="all"] .panel-group[data-group="type"] { display: block; }
+    .panel-sheet-head { display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 2; background: var(--card); padding: 16px 0 10px; margin-bottom: 4px; }
+    .panel-sheet-head strong { font-size: 18px; font-weight: 500; color: var(--hav); }
+    .panel-x { font-family: inherit; width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--page); color: var(--hav); font-size: 20px; line-height: 1; cursor: pointer; }
+    .panel-foot { position: sticky; bottom: 0; background: var(--card); padding: 12px 0 calc(14px + env(safe-area-inset-bottom)); margin-top: 18px; }
+    .panel-foot .btn-primary { flex: 1 1 auto; justify-content: center; padding: 12px 18px; font-size: 15px; }
+    .ex-grid { grid-template-columns: repeat(2, 1fr); }
+    .ex-num { font-size: 18px; }
+
     .grid { grid-template-columns: 1fr; gap: 12px; }
     .card { padding: 18px 18px 16px; border-radius: 18px; }
     .card-title { font-size: 19px; }
     .card-content { max-height: 210px; padding: 13px 14px; }
     .card-body { font-size: 14px; }
-    .results-bar { align-items: baseline; }
     footer { padding: 22px 16px 30px; flex-direction: column; gap: 6px; font-size: 13px; }
   }
-  @media (max-width: 520px) {
-    .filter-toolbar { align-items: stretch; flex-direction: column; gap: 10px; }
-    .filter-toolbar .filter-section { width: 100%; }
-    .type-filters { display: flex; width: 100%; }
-    .type-btn { flex: 1 1 0; padding-left: 6px; padding-right: 6px; font-size: 13px; }
-    .type-btn .count { margin-left: 3px; }
-    .cat-toggle { align-self: flex-start; }
+  @media (max-width: 380px) {
+    .brand-divider { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -278,7 +358,7 @@
   }
   @media print {
     body { background: #FFFFFF; }
-    header, .filters, .card-actions, footer, .skip-link, .intro { display: none !important; }
+    header, .toolbar, .panel, .results-bar, .card-actions, footer, .skip-link { display: none !important; }
     .grid { display: block; }
     .card { break-inside: avoid; border: 1px solid #000000; margin-bottom: 10px; box-shadow: none !important; }
     .card-content { max-height: none !important; overflow: visible !important; background: #FFFFFF; }
@@ -288,82 +368,99 @@
 </head>
 <body id="top">
 <a class="skip-link" href="#bibliotek">Spring til promptkortene</a>
-<header>
-  <div class="header-inner">
-    <div class="header-top">
-      <div class="brand">
-        <a class="brand-logo" href="#top" aria-label="Nykredit-promptbiblioteket – til toppen">
-          <img src="./nykredit-blaa.svg" alt="Nykredit" width="136" height="22">
-        </a>
-        <div class="brand-divider" aria-hidden="true"></div>
-        <div class="brand-meta">
-          <h1 class="brand-title">Nykredit-promptbiblioteket</h1>
-          <span class="brand-sub">Fra workshoppen <b>Kom i gang med kunstig intelligens – på 3 timer</b> · 11. november 2026 · Jacob Bøtter</span>
-        </div>
-      </div>
-      <div class="meta">
-        <strong id="total-count">0</strong>
-        prompts til din arbejdsdag i Nykredit
-      </div>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand-logo" href="#top" aria-label="Nykredit-promptbiblioteket – til toppen">
+      <img src="./nykredit-blaa.svg" alt="Nykredit" width="136" height="22">
+    </a>
+    <span class="brand-divider" aria-hidden="true"></span>
+    <div class="brand-meta">
+      <h1 class="brand-title"><span class="sr-only">Nykredit-</span>Promptbiblioteket</h1>
+      <p class="brand-sub"><b id="total-count">209</b> prompts til Copilot<span class="sub-lang"> · kopiér, sæt ind, tilpas – og gem din egen version</span></p>
     </div>
-    <p class="intro"><strong>Kopiér, sæt ind i Copilot, tilpas – og gem din egen version.</strong> Prompts fra de tolv eksempler på dagen og mange flere, skrevet til Microsoft 365 Copilot i Nykredit. De virker også i ChatGPT, Claude og Gemini – men dér kun med offentlige eller opdigtede data.</p>
+    <div class="masthead-side">
+      <span class="safety-pill"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>Ingen kunde- eller persondata</span>
+      <button class="info-btn" id="info-btn" type="button" aria-expanded="false" aria-controls="info-panel" aria-label="Sådan bruger du biblioteket">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span class="info-txt">Sådan</span>
+      </button>
+    </div>
+    <div class="info-panel" id="info-panel" hidden>
+      <p><strong>Kopiér, sæt ind i Copilot, tilpas – og gem din egen version.</strong> Prompts fra de tolv eksempler på workshoppen og mange flere, skrevet til Microsoft 365 Copilot i Nykredit. De virker også i ChatGPT, Claude og Gemini – men dér kun med offentlige eller opdigtede data.</p>
+      <ul class="legend">
+        <li><span class="mini-badge m">MIKRO</span><span>Én sætning, du sender med det samme.</span></li>
+        <li><span class="mini-badge q">KORT</span><span>En lille, færdig opgave.</span></li>
+        <li><span class="mini-badge d">RKM</span><span>Rolle · Kontekst · Metode – udfyld <em class="hint-bracket">[felterne]</em>.</span></li>
+      </ul>
+      <p class="info-safety"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg><span>Følg Nykredits interne regler – ingen kunde- eller persondata.</span></p>
+      <p class="info-small">Fra workshoppen <b>Kom i gang med kunstig intelligens – på 3 timer</b> · 11. november 2026 · Jacob Bøtter.<span class="kun-tastatur"> Tryk <span class="kbd">/</span> for at søge.</span></p>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar" id="toolbar">
+  <div class="wrap toolbar-inner" id="toolbar-inner">
     <div class="search-wrap">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
       </svg>
       <label class="sr-only" for="search">Søg i promptbiblioteket</label>
-      <input type="search" id="search" placeholder="Søg efter opgave eller emne…" autocomplete="off" spellcheck="false">
+      <input type="search" id="search" placeholder="Søg efter opgave – fx møde, mail, kredit …" autocomplete="off" spellcheck="false">
+      <span class="kbd search-kbd" aria-hidden="true">/</span>
     </div>
-    <div class="hint">
-      <span class="hint-item"><span class="mini-badge m">MIKRO</span>Én sætning, du sender med det samme.</span>
-      <span class="hint-item"><span class="mini-badge q">KORT</span>En lille, færdig opgave.</span>
-      <span class="hint-item"><span class="mini-badge d">RKM</span>Rolle · Kontekst · Metode – udfyld <em class="hint-bracket">[felterne]</em></span>
-      <span class="hint-item safety-hint">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-        Følg Nykredits interne regler – ingen kunde- eller persondata.
-      </span>
-      <span class="hint-item desktop-only">Tryk <span class="kbd">/</span> for at søge</span>
+    <div class="type-filters" role="group" aria-label="Type">
+      <button class="type-btn active" type="button" data-type="all" aria-pressed="true">Alle <span class="count" data-count="all">0</span></button>
+      <button class="type-btn" type="button" data-type="micro" aria-pressed="false" title="Én sætning, du sender med det samme">MIKRO <span class="count" data-count="micro">0</span></button>
+      <button class="type-btn" type="button" data-type="quick" aria-pressed="false" title="En lille, færdig opgave">KORT <span class="count" data-count="quick">0</span></button>
+      <button class="type-btn" type="button" data-type="deep" aria-pressed="false" title="Rolle · Kontekst · Metode – udfyld [felterne]">RKM <span class="count" data-count="deep">0</span></button>
     </div>
-  </div>
-</header>
+    <div class="dd-row">
+      <button class="dd-btn" type="button" data-group="example" aria-expanded="false" aria-controls="filter-panel">Fra dagen <span class="dd-n" data-n="example" hidden></span><svg class="dd-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <button class="dd-btn" type="button" data-group="category" aria-expanded="false" aria-controls="filter-panel">Arbejdssituation <span class="dd-n" data-n="category" hidden></span><svg class="dd-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <button class="dd-btn" type="button" data-group="field" aria-expanded="false" aria-controls="filter-panel">Fagområde <span class="dd-n" data-n="field" hidden></span><svg class="dd-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <button class="dd-btn filter-btn-all" type="button" data-group="all" aria-expanded="false" aria-controls="filter-panel">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+      Filtre <span class="dd-n" data-n="all" hidden></span>
+    </button>
 
-<section class="filters" aria-label="Filtrér promptbiblioteket">
-  <div class="filter-toolbar">
-    <div class="filter-section">
-      <div class="filter-label" id="type-label">Type</div>
-      <div class="type-filters" role="group" aria-labelledby="type-label">
-        <button class="type-btn active" type="button" data-type="all" aria-pressed="true">Alle <span class="count" id="count-all">0</span></button>
-        <button class="type-btn" type="button" data-type="micro" aria-pressed="false">MIKRO <span class="count" id="count-micro">0</span></button>
-        <button class="type-btn" type="button" data-type="quick" aria-pressed="false">KORT <span class="count" id="count-quick">0</span></button>
-        <button class="type-btn" type="button" data-type="deep" aria-pressed="false">RKM <span class="count" id="count-deep">0</span></button>
+    <div class="panel" id="filter-panel" role="region" aria-label="Filtre" hidden>
+      <div class="panel-sheet-head"><strong>Filtre</strong><button class="panel-x" type="button" data-close aria-label="Luk filtrene">×</button></div>
+      <section class="panel-group" data-group="type">
+        <h2 class="panel-title">Type</h2>
+        <div class="type-list" role="group" aria-label="Type">
+          <button class="type-btn type-opt" type="button" data-type="all" aria-pressed="true"><span class="mini-badge" style="background:var(--primaer-50);color:var(--horisont)">ALLE</span><span class="type-txt">Alle typer</span><span class="count" data-count="all">0</span></button>
+          <button class="type-btn type-opt" type="button" data-type="micro" aria-pressed="false"><span class="mini-badge m">MIKRO</span><span class="type-txt">Én sætning, du sender med det samme</span><span class="count" data-count="micro">0</span></button>
+          <button class="type-btn type-opt" type="button" data-type="quick" aria-pressed="false"><span class="mini-badge q">KORT</span><span class="type-txt">En lille, færdig opgave</span><span class="count" data-count="quick">0</span></button>
+          <button class="type-btn type-opt" type="button" data-type="deep" aria-pressed="false"><span class="mini-badge d">RKM</span><span class="type-txt">Rolle · Kontekst · Metode – udfyld [felterne]</span><span class="count" data-count="deep">0</span></button>
+        </div>
+      </section>
+      <section class="panel-group" data-group="example">
+        <h2 class="panel-title" id="example-label">Fra dagen <small>de tolv måder at bruge AI i dit arbejde</small></h2>
+        <div class="ex-grid" id="example-filters" role="group" aria-labelledby="example-label"></div>
+      </section>
+      <section class="panel-group" data-group="category">
+        <h2 class="panel-title" id="category-label">Arbejdssituation</h2>
+        <div class="cat-filters" id="category-filters" role="group" aria-labelledby="category-label"></div>
+      </section>
+      <section class="panel-group" data-group="field">
+        <h2 class="panel-title" id="field-label">Fagområde</h2>
+        <div class="cat-filters" id="field-filters" role="group" aria-labelledby="field-label"></div>
+      </section>
+      <div class="panel-foot">
+        <button class="clear-btn" id="panel-clear" type="button">Nulstil</button>
+        <button class="btn btn-primary" type="button" data-close><span>Vis <span data-count="results">0</span> prompts</span></button>
       </div>
     </div>
-    <button class="cat-toggle" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">
-      <span id="filter-toggle-label">Vis filtre</span>
-      <svg class="cat-toggle-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
   </div>
-
-  <div class="filter-panel" id="filter-panel">
-    <div class="filter-section">
-      <div class="filter-label" id="example-label">Fra dagen <small>de tolv måder at bruge AI i dit arbejde</small></div>
-      <div class="cat-filters" id="example-filters" role="group" aria-labelledby="example-label"></div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label" id="category-label">Arbejdssituation</div>
-      <div class="cat-filters" id="category-filters" role="group" aria-labelledby="category-label"></div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label" id="field-label">Fagområde</div>
-      <div class="cat-filters" id="field-filters" role="group" aria-labelledby="field-label"></div>
-    </div>
-  </div>
-</section>
+  <div class="panel-backdrop" id="panel-backdrop" hidden></div>
+</div>
 
 <main id="bibliotek" tabindex="-1">
   <div class="results-bar">
     <div class="results-info" aria-live="polite"><strong id="results-count">0</strong> prompts vist</div>
-    <button class="clear-btn clear-all" id="clear-all" type="button" hidden>Ryd alle filtre</button>
+    <div class="active-chips" id="active-chips"></div>
+    <button class="clear-btn clear-all" id="clear-all" type="button" hidden>Ryd alle</button>
   </div>
   <div class="grid" id="grid"></div>
   <noscript><p class="noscript">Promptbiblioteket kræver JavaScript for at kunne søge, filtrere og kopiere prompts.</p></noscript>
@@ -381,7 +478,7 @@
   <span id="toast-text">Kopieret til udklipsholder</span>
 </div>
 
-<script src="./prompts.js?v=2026-11-09-2"></script>
-<script src="./app.js?v=2026-11-09-2"></script>
+<script src="./prompts.js?v=2026-11-09-3"></script>
+<script src="./app.js?v=2026-11-09-3"></script>
 </body>
 </html>
