@@ -546,7 +546,7 @@ For hver slide: en overskrift, der er en pointe (ikke et emne), højst tre punkt
     field: "Investering & pension",
     type: "quick",
     title: "Byg en lille pensionsberegner, jeg kan klikke på",
-    when: "Brug den, når du vil have et lille, rigtigt program i stedet for en tegning af et – fx i Lovable, Claude eller ChatGPT. Tallene er illustration, ikke rådgivning.",
+    when: "Brug den, når du vil have et lille, rigtigt program i stedet for en tegning af et – fx i Copilot (bed om en interaktiv illustration) eller Lovable. Tallene er illustration, ikke rådgivning.",
     tags: ["beregner", "pension", "program", "Lovable", "prototype"],
     prompt: `Byg en simpel pensionsberegner som én HTML-side, jeg kan åbne i en browser.
 
@@ -2560,6 +2560,7 @@ Peg ikke på personer, og formulér ikke noget, der kan læses som en personales
   },
   {
     id: "p141",
+    example: "E04",
     category: "Research & læring",
     field: "På tværs",
     type: "quick",
@@ -2587,6 +2588,7 @@ Hvilke to afsnit bør jeg selv læse først?`,
   },
   {
     id: "p143",
+    example: "E08",
     category: "Research & læring",
     field: "På tværs",
     type: "micro",
@@ -2599,6 +2601,7 @@ Hvad i [DE ANDRE DOKUMENTER – FX FORRETNINGSGANGEN OG KREDITPOLITIKKEN] kan fo
   },
   {
     id: "p144",
+    example: "E11",
     category: "Egen arbejdsdag",
     field: "På tværs",
     type: "deep",
@@ -2621,6 +2624,7 @@ Brug kun mine mails, min kalender og mine Teams-beskeder. Gæt ikke. Skriv "Inte
   },
   {
     id: "p145",
+    example: "E09",
     category: "Præsentation & visualisering",
     field: "På tværs",
     type: "quick",
@@ -2633,6 +2637,7 @@ Brug kun mine mails, min kalender og mine Teams-beskeder. Gæt ikke. Skriv "Inte
   },
   {
     id: "p146",
+    example: "E10",
     category: "Præsentation & visualisering",
     field: "Kunderådgivning",
     type: "quick",
