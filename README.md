@@ -6,9 +6,13 @@ Bygget til workshoppen *Kom i gang med kunstig intelligens – på 3 timer* onsd
 (hold 1 kl. 9–12, hold 2 kl. 13–16, Åhave Parkvej 29, Viby J) med Jacob Bøtter.
 Prompterne er skrevet til Microsoft 365 Copilot, som er Nykredit-medarbejdernes arbejdsværktøj.
 
-209 prompts: de 138 fra workshoppen (knyttet til dagens tolv eksempler), 8 til de nye Copilot-slides
-og 63 rolleprompts fra Nykredit-biblioteket fra april 2026 (kunderådgivning, kredit, investering, jura,
-IT, ledelse og kommunikation). Aprilversionen ligger i git-historikken.
+228 prompts: de 138 fra workshoppen (knyttet til dagens tolv eksempler), 8 til de nye Copilot-slides,
+63 rolleprompts fra Nykredit-biblioteket fra april 2026 (kunderådgivning, kredit, investering, jura,
+IT, ledelse og kommunikation), 2 fra lederforløbet (kalenderen og referatet af noter + transskription,
+p210–p211) og 17, der står på de endelige slides, men manglede i biblioteket (p212–p228: byg i etaper,
+spørg ind, test af profilen, hukommelsen, agenten fra eksempel 01, tre spørgsmål, undersøgelsen som
+personaer, ret mine fejl, skærmbillede til tabel, før og under mødet, strukturen til slides, slides
+som webside og tegning som prompt). Aprilversionen ligger i git-historikken.
 
 ## Deploy
 
@@ -51,7 +55,7 @@ Kortene henviser til Nykredits interne regler – de fortæller ikke, hvad regle
 | `deep` | RKM | Rolle, kontekst og metode – dagens fulde promptmodel. |
 
 **Fra dagen (`example`):** 01 Sparringspartner · 02 Skriveblokering · 03 Fokusgruppe · 04 Praktikant ·
-05 IT-supporter · 06 Alle sprog · 07 Aflaste kolleger · 08 Researcher · 09 Slides · 10 Programmør ·
+05 Excel · 06 Alle sprog · 07 Møder · 08 Researcher · 09 Slides · 10 Programmør ·
 11 Ny kollega · 12 Kreativ makker. Etiketterne står i `EXAMPLES` i `app.js`.
 
 **Fagområder (`field`):** På tværs · Kunderådgivning · Kredit · Investering & pension · Jura & compliance ·

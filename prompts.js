@@ -2,10 +2,17 @@
 // Bygget til workshoppen "Kom i gang med kunstig intelligens – på 3 timer" den 11. november 2026 med Jacob Bøtter.
 // type: "micro" vises som MIKRO, "quick" som KORT, "deep" som RKM (rolle · kontekst · metode).
 // Arbejdssituationen (category) er den primære indgang. Fagområde (field) og "Fra dagen" (example, E01–E12) er separate filtre.
-// example er valgfrit: 01 Sparringspartner · 02 Skriveblokering · 03 Fokusgruppe · 04 Praktikant · 05 IT-supporter · 06 Alle sprog · 07 Aflaste kolleger · 08 Researcher · 09 Slides · 10 Programmør · 11 Ny kollega · 12 Kreativ makker
+// example er valgfrit og følger numrene på dagens otte eksempler i slidesne (rettet 10/11-2026):
+// 01 Sparringspartner · 02 Skriveblokering · 03 Fokusgruppe · 04 Praktikant · 05 Superbruger i Excel · 06 Alle sprog · 07 Møder · 08 Researcher
+// E09–E12 er ikke nummererede eksempler på dagen. De hører til "Del 3 · Flere muligheder" og ekstra-afsnittet: 09 Slides · 10 Programmør · 11 Ny kollega · 12 Kreativ makker
+// E05 var før "IT-supporter" og E07 "Aflaste kolleger". De prompts (p013–p015, p020–p022, p105, p128) står her stadig, men uden example.
+// Etiketterne, som brugeren ser, står i EXAMPLES i app.js og skal passe til listen her.
 // field: "På tværs" betyder, at prompten virker uanset jobfunktion. Øvrige værdier: Kunderådgivning · Kredit · Investering & pension · Jura & compliance · Back-office & økonomi · IT · Kommunikation · Ledelse & HR (se FIELDS i app.js).
 // p001–p138: biblioteket fra workshoppen. p139–p146: prompts til de nye Copilot-slides (arbejdsprofil, referat, dokumenter, stabschef, PowerPoint, interaktiv illustration).
 // p147–p209: rolleprompts fra Nykredit-promptbiblioteket april 2026 (kunderådgivning, kredit, investering, jura, IT, ledelse, kommunikation), tilpasset Copilot.
+// p210–p211: fra lederforløbet modul 3 (kalenderen: hvor gik din tid; referat af egne noter + transskription), tilpasset medarbejdere.
+// p212–p228: prompts, der står på de endelige slides, men manglede her (byg i etaper, spørg ind, test af profilen, hukommelsen, agenten fra eksempel 01,
+// tre spørgsmål, undersøgelsen som personaer, ret mine fejl, skærmbillede til tabel, før og under mødet, strukturen til slides, slides som webside, tegning som prompt).
 
 const PROMPTS = [
   // Fra dagen · E01 Sparringspartner
@@ -183,7 +190,7 @@ Ingen indledende høfligheder på tre linjer. Ingen løfter, jeg ikke har nævnt
   },
   {
     id: "p010",
-    example: "E04",
+    example: "E07",
     category: "Møder & samarbejde",
     field: "På tværs",
     type: "quick",
@@ -227,13 +234,13 @@ Bogfør intet, og godkend intet. Det gør jeg.`,
   },
   {
     id: "p012",
-    example: "E04",
+    example: "E05",
     category: "Analyse & data",
     field: "Back-office & økonomi",
     type: "quick",
     title: "Forklar arket, og find de skæve rækker",
     when: "Brug den, når du får et regneark fra en kollega og ikke er sikker på, hvad der er i det – i Copilot i Excel eller med et opdigtet udtræk.",
-    tags: ["Excel", "Copilot", "regneark", "kontrol", "afvigelser"],
+    tags: ["Excel", "Copilot", "regneark", "kontrol", "afvigelser", "superbruger"],
     prompt: `Se på dette ark: [ÅBN DET I COPILOT I EXCEL – ELLER INDSÆT ET LILLE, OPDIGTET UDTRÆK MED OVERSKRIFTER].
 
 1. Forklar i én linje pr. kolonne, hvad den ser ud til at indeholde
@@ -244,10 +251,9 @@ Bogfør intet, og godkend intet. Det gør jeg.`,
 Ændr ikke i arket. Foreslå kun.`,
     safety: "Kør kontrollen på en kopi. Formler skal testes, før de bruges på det rigtige datasæt – og rigtige data hører kun hjemme i Copilot i Nykredit."
   },
-  // Fra dagen · E05 IT-supporter
+  // IT-support · før E05 IT-supporter, nu uden example (p013–p015). p016 er stadig E05
   {
     id: "p013",
-    example: "E05",
     category: "Egen arbejdsdag",
     field: "IT",
     type: "micro",
@@ -259,7 +265,6 @@ Bogfør intet, og godkend intet. Det gør jeg.`,
   },
   {
     id: "p014",
-    example: "E05",
     category: "Projekter & processer",
     field: "IT",
     type: "quick",
@@ -282,7 +287,6 @@ Spørg mig, hvis noget mangler, i stedet for at gætte.`,
   },
   {
     id: "p015",
-    example: "E05",
     category: "Analyse & data",
     field: "IT",
     type: "deep",
@@ -363,10 +367,9 @@ Behold min tone og min struktur. Forklar danske forkortelser og fagudtryk i en p
 Skriv to versioner med præcis de samme fakta: dansk (tilrettet) og engelsk. Højst [ANTAL] ord hver, samme overskrift på begge sprog, og samme handling til sidst. Marker ét sted, hvor sprogene ville formulere sig forskelligt, og hvad du valgte.`,
     safety: "Få en kollega, der skriver godt engelsk, til at læse den engelske version, før den sendes. To versioner må ikke sige to forskellige ting."
   },
-  // Fra dagen · E07 Aflaste kolleger
+  // Procedurer og overlevering · før E07 Aflaste kolleger, nu uden example (p020–p022)
   {
     id: "p020",
-    example: "E07",
     category: "Projekter & processer",
     field: "På tværs",
     type: "deep",
@@ -390,7 +393,6 @@ Skriv kort. Den, der læser, har travlt.`,
   },
   {
     id: "p021",
-    example: "E07",
     category: "Projekter & processer",
     field: "På tværs",
     type: "quick",
@@ -410,7 +412,6 @@ Udelad ikke kontroltrin, og opfind ikke trin, der ikke står i vejledningen.`,
   },
   {
     id: "p022",
-    example: "E07",
     category: "Egen arbejdsdag",
     field: "På tværs",
     type: "quick",
@@ -558,13 +559,13 @@ Vis forudsætningerne tydeligt på siden, og skriv nederst: "Illustration – ik
   },
   {
     id: "p030",
-    example: "E10",
+    example: "E05",
     category: "Analyse & data",
     field: "Back-office & økonomi",
     type: "quick",
     title: "Skriv formlen eller makroen ud fra min beskrivelse",
     when: "Brug den, når du ved, hvad arket skal gøre, men ikke hvordan man skriver det i Excel.",
-    tags: ["Excel", "formel", "makro", "VBA", "Copilot"],
+    tags: ["Excel", "formel", "makro", "VBA", "Copilot", "pivottabel", "superbruger"],
     prompt: `I mit ark har jeg kolonnerne [FX A: DATO, B: VIRKSOMHED, C: CVR, D: KATEGORI, E: BELØB]. Jeg vil [MÅL – FX "HAVE EN NY FANE PR. KATEGORI MED SUMMEN AF BELØB, SORTERET EFTER DATO"].
 
 Giv mig først den enkleste løsning (formel eller pivottabel). Hvis det kræver en makro, så skriv VBA-koden, forklar den linje for linje i almindeligt dansk, og skriv trin for trin, hvordan jeg sætter den ind og kører den. Sig, hvad jeg skal teste på en kopi først, og hvad der typisk går galt på Mac og på Windows.`,
@@ -817,8 +818,8 @@ Vurdér persondata, fortrolighed, konsekvensen af fejl, behovet for menneskelig 
     field: "På tværs",
     type: "quick",
     title: "Prøv min opgave i seks af dagens AI-roller",
-    when: "Brug den, når du vil se, hvor mange af dagens tolv måder der passer på den samme opgave.",
-    tags: ["AI-roller", "muligheder", "arbejdsopgaver", "tolv måder"],
+    when: "Brug den, når du vil se, hvor mange af dagens otte måder der passer på den samme opgave.",
+    tags: ["AI-roller", "muligheder", "arbejdsopgaver", "otte måder"],
     prompt: `Her er en opgave fra min hverdag: [BESKRIV OPGAVEN UDEN FORTROLIGE DETALJER].
 
 Vis mig i én linje pr. rolle, hvordan hver af disse kunne hjælpe:
@@ -826,7 +827,7 @@ Vis mig i én linje pr. rolle, hvordan hver af disse kunne hjælpe:
 2. Skrivehjælp mod skriveblokering
 3. Fokusgruppe
 4. Praktikant
-5. IT-supporter
+5. Excel-hjælper
 6. Researcher
 
 Slut med den ene rolle, der ville hjælpe mig mest allerede i morgen, og hvad jeg skal kontrollere ved den.`,
@@ -955,7 +956,7 @@ Hold forsøget lille nok til at kunne gennemføres på den angivne tid.`,
     type: "micro",
     title: "Spørg, før du svarer",
     when: "Brug den, når opgaven er for vigtig til, at det første svar må være et gæt.",
-    tags: ["afklarende spørgsmål", "dialog", "RKM"],
+    tags: ["afklarende spørgsmål", "dialog", "RKM", "fire tricks", "stil mig to spørgsmål, før du skriver"],
     prompt: `Stil mig tre afklarende spørgsmål, før du løser opgaven. Vent på mine svar.`,
     safety: "Svar med ufølsomme oplysninger eller pladsholdere."
   },
@@ -1404,7 +1405,7 @@ Bevar de samme fakta og løfter i alle tre versioner. Tilføj ikke nye oplysning
   },
   {
     id: "p081",
-    example: "E04",
+    example: "E07",
     category: "Møder & samarbejde",
     field: "På tværs",
     type: "quick",
@@ -1706,7 +1707,7 @@ Skriv til sidst, hvad der går tabt i den korteste version, og om det er accepta
     type: "micro",
     title: "Hvor står det?",
     when: "Brug den, når et svar henviser til et dokument, du selv har givet.",
-    tags: ["kilde", "henvisning", "faktatjek"],
+    tags: ["kilde", "henvisning", "faktatjek", "fire tricks", "vis mig kilden"],
     prompt: `Peg på, hvor i kilden hver påstand står. Skriv "står ikke i kilden", hvor den ikke gør.`,
     safety: "Åbn selv de vigtigste steder i kilden - en henvisning kan være opfundet."
   },
@@ -1792,7 +1793,7 @@ Forklar kort hvorfor, og foreslå hvilken type primærkilde der kan kontrollere 
     type: "quick",
     title: "Forklar og fejlfind en Excel-formel",
     when: "Brug den, når du vil forstå en formel i Excel eller et andet regneark i stedet for blot at kopiere den.",
-    tags: ["regneark", "formel", "test", "Excel", "data", "fejlfinding"],
+    tags: ["regneark", "formel", "test", "Excel", "data", "fejlfinding", "#VÆRDI!", "superbruger"],
     prompt: `Forklar denne formel i almindeligt dansk: [INDSÆT FORMEL].
 
 Vis derefter:
@@ -1870,7 +1871,6 @@ Hvis du ikke har webadgang eller ikke kan åbne en kilde, skal du sige det og ik
   },
   {
     id: "p105",
-    example: "E07",
     category: "Kvalitet & sikkerhed",
     field: "Jura & compliance",
     type: "deep",
@@ -2331,7 +2331,6 @@ Foreslå også en billedfri alternativ visualisering.`,
   },
   {
     id: "p128",
-    example: "E07",
     category: "Projekter & processer",
     field: "Ledelse & HR",
     type: "deep",
@@ -2542,13 +2541,14 @@ Peg ikke på personer, og formulér ikke noget, der kan læses som en personales
     type: "quick",
     title: "Lad Copilot interviewe dig – og skriv din arbejdsprofil",
     when: "Brug den én gang, når Copilot skal kende din rolle, og hvordan du vil have svar – svar gerne med mikrofonen, du taler friere, end du skriver.",
-    tags: ["arbejdsprofil", "brugerdefinerede instruktioner", "Copilot", "interview", "personalisering"],
+    tags: ["arbejdsprofil", "brugerdefinerede instruktioner", "Copilot", "interview", "personalisering", "øvelse 1"],
     prompt: `Interview mig, så du kan skrive mine brugerdefinerede instruktioner i Copilot. Stil mig fem spørgsmål om min rolle, mine opgaver, hvem jeg skriver til, hvordan jeg arbejder og hvordan jeg vil have svar. Stil ét spørgsmål ad gangen, og vent på mit svar. Skriv derefter en arbejdsprofil med tre afsnit: Om mig, Sådan vil jeg have svar og Hvem jeg skriver til.`,
     safety: "Læs profilen, og ret det, der ikke passer. Sæt den ind under de tre prikker øverst → Chat-indstillinger → Personalisering (kan hedde Tilpasning) → Brugerdefinerede instruktioner → Rediger instruktioner, og gem. Har du allerede instruktioner, så tilføj kun det, du mangler.",
     avoid: "Skriv ikke kundenavne, CPR-numre eller oplysninger om kolleger i profilen. Følg Nykredits interne regler."
   },
   {
     id: "p140",
+    example: "E07",
     category: "Møder & samarbejde",
     field: "På tværs",
     type: "micro",
@@ -2566,7 +2566,7 @@ Peg ikke på personer, og formulér ikke noget, der kan læses som en personales
     type: "quick",
     title: "Hvad er ændret mellem to versioner?",
     when: "Brug den, når en forretningsgang, en politik eller en vejledning er kommet i en ny version, og du vil vide, hvad der faktisk er ændret – vedhæft begge filer i Copilot.",
-    tags: ["versioner", "forretningsgang", "sammenlign", "ændringer", "Copilot"],
+    tags: ["versioner", "forretningsgang", "sammenlign", "ændringer", "Copilot", "hvad er ændret siden sidst", "øvelse 3"],
     prompt: `Her er den gamle og den nye version af [DOKUMENTET – FX VORES FORRETNINGSGANG FOR BOLIGSAGER].
 Hvad er ændret? Lav en tabel med kolonnerne Afsnit, Før, Nu og Betydning for [ROLLE – FX EN RÅDGIVER].
 Citér ordret i Før og Nu. Tag kun ændringer med, der betyder noget for arbejdet.`,
@@ -3580,6 +3580,7 @@ Tone: nøgtern og faktuel. Markér hvor jeg skal indsætte tal jeg ikke har give
   // April 2026 · Møder & dokumenter
   {
     id: "p195",
+    example: "E07",
     category: "Møder & samarbejde",
     field: "På tværs",
     type: "deep",
@@ -3811,6 +3812,255 @@ Du behøver ikke konkludere for mig. Kvaliteten af spørgsmålene er vigtigere e
     tags: ["ræsonnement", "kritik", "svage led", "sparring"],
     prompt: `Find fem huller eller svage led i mit ræsonnement og prioritér dem efter alvor.`,
     safety: "Kritikken er en idéliste. Du vurderer, hvilke huller der er reelle."
+  },
+  // Fra lederforløbet · kalenderen og referatet (tilføjet 10. november 2026)
+  {
+    id: "p210",
+    example: "E07",
+    category: "Egen arbejdsdag",
+    field: "På tværs",
+    type: "quick",
+    title: "Spørg Copilot, hvor din tid gik",
+    when: "Brug den i Outlook (vælg Copilot øverst), når du vil se, hvad dine møder de seneste to uger faktisk gik til – og om det passer med det, du selv siger er vigtigst.",
+    tags: ["kalender", "Outlook", "Copilot", "møder", "tid", "prioritering", "øvelse 3"],
+    prompt: `Gennemgå min kalender for de seneste to uger. Vis først listen over de møder, du har fundet, så jeg kan tjekke den.
+Læg dem derefter i fem kategorier: drift, kunder, udvikling, koordinering og uafklaret. Regn ud, hvor mange timer hver kategori fylder.
+Sammenlign med det, jeg siger er vigtigst: [DINE PRIORITETER – FX "KUNDEMØDER, HVOR JEG ER GODT FORBEREDT, OPFØLGNING PÅ MINE EGNE SAGER OG AT LÆRE DET NYE SAGSFLOW"]. Foreslå tre konkrete ændringer til næste uges kalender.`,
+    safety: "Tjek mødelisten, før du tror på timerne – mangler der møder, bliver regnestykket forkert. Svaret viser kalenderlagt tid, ikke hvad du faktisk brugte tiden på. Kan Copilot ikke læse din kalender, så sæt ugens mødeliste ind under prompten.",
+    avoid: "Brug den kun i Copilot i Nykredit – aldrig i et privat AI-værktøj med din kalender."
+  },
+  {
+    id: "p211",
+    example: "E07",
+    category: "Møder & samarbejde",
+    field: "På tværs",
+    type: "quick",
+    title: "Det bedste referat: dine noter og transskriptionen",
+    when: "Brug den lige efter et møde, der blev transskriberet i Teams, og hvor du selv tog noter – transskriptionen hører ordene, dine noter viser, hvad der var vigtigt. I Teams har Copilot allerede transskriptionen, så dér sætter du kun dine noter ind.",
+    tags: ["referat", "transskription", "noter", "Teams", "beslutninger", "opgaver"],
+    prompt: `Nedenfor står transskriptionen fra mødet og mine egne noter. Mine noter viser, hvad jeg fandt vigtigt.
+Skriv et referat med beslutninger, opgaver (hvem, hvad, hvornår) og åbne spørgsmål. Skeln mellem det, vi aftalte, og det, der kun blev foreslået. Bevar betingelser og forbehold. Vis et kort citat fra transskriptionen ved hver beslutning.
+Siger mine noter og transskriptionen ikke det samme, så vis forskellen i stedet for at vælge. Skriv [mangler], hvor en ansvarlig eller en frist ikke blev sagt.
+Transskription: [INDSÆT TRANSSKRIPTIONEN]
+Mine noter: [INDSÆT DINE NOTER]`,
+    safety: "Slå citaterne op i transskriptionen, og læs de steder, hvor noter og transskription ikke siger det samme. Noter taber forbehold – og referatet er først rigtigt, når mødelederen har godkendt det. Kontrollér det bagefter med \"Tjek referatet mod transskriptionen\".",
+    avoid: "Sig det til de andre i mødet, før du transskriberer. Skriv ikke kundenavne eller fortrolige sagsoplysninger i noterne, og følg Nykredits interne regler for optagelse og transskription af møder."
+  },
+  // Fra de endelige slides · prompts, der står på dagens slides (tilføjet 10. november 2026, p212–p228)
+  {
+    id: "p212",
+    category: "Prompting & sparring",
+    field: "På tværs",
+    type: "micro",
+    title: "Byg i etaper 1: bed kun om dispositionen",
+    when: "Brug den som første prompt, når opgaven er for stor til ét hug – et oplæg, et notat eller en plan. Skift oplægget ud med din egen opgave, og vælg selv blandt de tre forslag.",
+    tags: ["etaper", "byg i etaper", "disposition", "oplæg", "én prompt er sjældent nok"],
+    prompt: `Jeg skal holde et oplæg på vores teammøde om bedre overdragelse af sager. Giv mig tre forslag til en disposition. Kun dispositionen.`,
+    safety: "\"Kun dispositionen\" holder Copilot fra at skrive hele oplægget i første svar. Du vælger – ikke maskinen."
+  },
+  {
+    id: "p213",
+    category: "Prompting & sparring",
+    field: "På tværs",
+    type: "micro",
+    title: "Byg i etaper 2: vælg, og bed om hovedpunkter",
+    when: "Brug den i samme chat, når du har fået forslagene til en disposition og har valgt ét af dem.",
+    tags: ["etaper", "byg i etaper", "hovedpunkter", "oplæg"],
+    prompt: `Jeg vælger nummer 2. Skriv tre hovedpunkter under hvert afsnit. Vent på mig, før du skriver videre.`,
+    safety: "Læs hovedpunkterne, før du går videre. Det er billigere at rette tre linjer nu end en hel side bagefter."
+  },
+  {
+    id: "p214",
+    category: "Prompting & sparring",
+    field: "På tværs",
+    type: "micro",
+    title: "Byg i etaper 3: første udkast på én side",
+    when: "Brug den i samme chat, når du har godkendt hovedpunkterne.",
+    tags: ["etaper", "byg i etaper", "første udkast", "oplæg"],
+    prompt: `Skriv et første udkast på én side ud fra hovedpunkterne. Konklusionen først.`,
+    safety: "Det er et første udkast. Tjek fakta og eksempler, og giv feedback, før du bruger det."
+  },
+  {
+    id: "p215",
+    category: "Prompting & sparring",
+    field: "På tværs",
+    type: "micro",
+    title: "Byg i etaper 4: giv feedback på udkastet",
+    when: "Brug den i samme chat, når første udkast ikke sidder endnu. Sig, hvad der er for langt, og hvad der skal ind i stedet – præcis som du ville sige det til en kollega.",
+    tags: ["etaper", "byg i etaper", "feedback", "forbedret version", "ping-pong", "pingpong"],
+    prompt: `Indledningen er for lang, og eksemplet er for konstrueret. Skær indledningen ned til tre linjer, og brug et eksempel fra en helt almindelig mandag.`,
+    safety: "Skriv din egen feedback – den her er et eksempel. Læs den nye version igennem, før du bruger den."
+  },
+  {
+    id: "p216",
+    category: "Møder & samarbejde",
+    field: "På tværs",
+    type: "micro",
+    title: "Forbered mødet – ét spørgsmål ad gangen",
+    when: "Brug den, når du skal forberede et møde og hellere vil svare på spørgsmål end skrive en lang bestilling. Svar gerne med stemmen.",
+    tags: ["spørg ind", "mødeforberedelse", "ét spørgsmål ad gangen", "stemmen", "overdragelse"],
+    prompt: `Jeg har 20 minutter med kundeservice og sagsbehandling om bedre overdragelse af sager. Hjælp mig med at forberede mødet. Stil ét spørgsmål ad gangen.`,
+    safety: "Skift mødet ud med dit eget, og svar uden navne på kunder og kolleger. Tjek forberedelsen, før du går ind til mødet."
+  },
+  {
+    id: "p217",
+    category: "Prompting & sparring",
+    field: "På tværs",
+    type: "micro",
+    title: "Hvad ved du om mig?",
+    when: "Brug den i en ny chat, lige efter du har gemt dine brugerdefinerede instruktioner i Copilot – så ser du, om de virker.",
+    tags: ["brugerdefinerede instruktioner", "personalisering", "profil", "test", "Copilot"],
+    prompt: `Hvad ved du om mig, og hvordan vil du svare mig?`,
+    safety: "Passer svaret ikke, så ret én linje i profilen – ikke prompten. Er knapperne grå, så gem profilen i Word, og sæt den ind som første besked i en ny chat."
+  },
+  {
+    id: "p218",
+    category: "Prompting & sparring",
+    field: "På tværs",
+    type: "micro",
+    title: "Copilot, husk, at …",
+    when: "Brug den, når Copilot skal huske en arbejdsvane fra chat til chat – fx hvor lange svar du vil have. Du kan se og slette det igen under Chat-indstillinger → Personalisering → Gemte minder.",
+    tags: ["hukommelse", "gemte minder", "personalisering", "arbejdsvaner", "Copilot"],
+    prompt: `Copilot, husk, at jeg foretrækker svar på højst 150 ord.`,
+    safety: "Tjek, at Copilot kvitterer med, at hukommelsen er opdateret. Er knapperne grå hos dig, så skriv sætningen ind i dine brugerdefinerede instruktioner i stedet.",
+    avoid: "Bed den kun huske arbejdsvaner. Aldrig noget om kunder eller kolleger."
+  },
+  {
+    id: "p219",
+    example: "E01",
+    category: "Møder & samarbejde",
+    field: "Kunderådgivning",
+    type: "deep",
+    title: "Byg din egen agent – skriv så kun firmanavnet",
+    when: "Brug den som instruktion i din egen agent i Copilot: Agenter → opret en ny agent → sæt teksten ind i Instruktioner, slå websøgning til, og tryk Opret. Før mødet med en ny erhvervskunde skriver du så kun firmanavnet.",
+    tags: ["agent", "Agent Builder", "erhvervskunde", "mødeforberedelse", "firmanavn", "SWOT", "Business Model Canvas", "RKM"],
+    prompt: `Rolle: Jeg er kunderådgiver for erhvervsområdet i Nykredit. Jeg ønsker at få hjælp til at forberede mine møder med nye erhvervskunder.
+
+Kontekst: Jeg nævner en virksomheds navn for dig og du vil undersøge alt hvad du kan om denne virksomhed for at opnå en dyb forståelse for virksomheden.
+
+Metode: Når jeg nævner en virksomhed for dig, vil du først finde virksomhedens hjemmeside og læse den. Dernæst finde nyheder på nettet om dem og forstå dem. Dernæst finde virksomhedens regnskab på f.eks. CVR.dk, Proff.dk eller lign. kilde for at forstå deres økonomi. Herefter vil du svare mig med følgende: 1) Kort overblik over virksomheden, 2) En SWOT-analyse af virksomhedens situation, 3) En Business Model Canvas der forklarer deres forretningsmodel og 4) Hvilke ydelser Nykredit kunne tilbyde denne virksomhed`,
+    safety: "Agenten henter fra offentlige kilder – hjemmeside, regnskab og nyheder – og kan tage fejl. Tjek tallene i kilden, før du tager dem med ind til en kunde. Forslagene til Nykredit-ydelser er maskinens bud, ikke en aftale.",
+    avoid: "Skriv kun firmanavnet. Ingen kundedata og ingen interne dokumenter – og følg Nykredits interne regler, også for agenter."
+  },
+  {
+    id: "p220",
+    example: "E02",
+    category: "Skrivning & redigering",
+    field: "På tværs",
+    type: "quick",
+    title: "Stil mig tre spørgsmål – skriv så udkastet",
+    when: "Brug den, når du sidder foran en tom side – et oplæg, en mail, et notat eller en dagsorden. Copilot interviewer dig først, og udkastet bygger på dine svar, ikke på et gæt.",
+    tags: ["tre spørgsmål", "udkast", "skriveblokering", "tom side", "dagsorden", "stil mig tre spørgsmål, og skriv så udkastet", "øvelse 3"],
+    prompt: `[DET, JEG SKAL LAVE – FX "JEG SKAL UNDERVISE EN STØRRE GRUPPE MEDARBEJDERE FRA NYKREDIT I AT ANVENDE AI OG COPILOT I DERES HVERDAG PÅ KONTORET"]. Stil mig tre spørgsmål, og foreslå derefter [DET, JEG SKAL BRUGE – FX "EN DETALJERET DAGSORDEN FOR MØDET"].`,
+    safety: "Svar kort – tre linjer er nok. Det er et første udkast: du retter det, men du starter med noget at rette."
+  },
+  {
+    id: "p221",
+    example: "E03",
+    category: "Kunde & kollega",
+    field: "På tværs",
+    type: "quick",
+    title: "Lav undersøgelsen om til fem, du kan spørge",
+    when: "Brug den, når du har en anonym spørgeskemaundersøgelse og gerne vil kunne spørge deltagerne til råds – fx aftenen før et oplæg. Læg besvarelserne ind som et regneark med plusset.",
+    tags: ["fokusgruppe", "personaer", "spørgeskema", "undersøgelse", "fiktive personer", "regneark"],
+    prompt: `Jeg ønsker at du omdanner denne anonyme spørgeskemaundersøgelse til en række personaer. Besvarelserne er for [HVEM OG HVAD – FX "EN BANK DER AFHOLDER ET KOMPETENCEUDVIKLINGSFORLØB I ANVENDELSE AF AI I DAGLIGT ARBEJDE"]. Du skal lave 5-6 fiktive personaer baseret på besvarelserne. Du skal give personaen et realistisk navn og beskrive denne persons anvendelse af AI, IT, dagligdag i banken, mv.`,
+    safety: "Svarene er rigtige, personerne er det ikke. Panelet viser dine blinde vinkler – det fortæller dig ikke, hvad rigtige kolleger mener.",
+    avoid: "Brug kun anonyme besvarelser uden navne, og læg aldrig rigtige kundeoplysninger ind som materiale. Følg Nykredits interne regler."
+  },
+  {
+    id: "p222",
+    example: "E04",
+    category: "Skrivning & redigering",
+    field: "På tværs",
+    type: "quick",
+    title: "Ret mine fejl – og vis mig, hvad du rettede",
+    when: "Brug den, når en tekst skal være fri for fejl, før den går videre – og du selv vil kunne sige ja eller nej til hver rettelse.",
+    tags: ["korrektur", "korrektur i en tabel", "rettelser", "tabel", "stavefejl", "grammatik", "ret min tekst, og vis rettelserne i en tabel", "øvelse 3"],
+    prompt: `Du skal rette min tekst for slåfejl, stavefejl, grammatiske fejl eller andre tekniske fejl i teksten. Du skal lave en tabel hvor du oplister alle dine rettelser, så jeg kan kontrollere dit arbejde. Min tekst: [INDSÆT DIN TEKST]`,
+    safety: "Gå tabellen igennem række for række – det er dig, der siger ja eller nej til hver rettelse. Tjek især de steder, hvor en rettelse kan ændre betydningen.",
+    avoid: "Brug Copilot i Nykredit til dine egne tekster, og følg Nykredits interne regler for, hvad du må sætte ind."
+  },
+  {
+    id: "p223",
+    example: "E05",
+    category: "Analyse & data",
+    field: "På tværs",
+    type: "quick",
+    title: "Fra skærmbillede eller PDF til en tabel",
+    when: "Brug den i Copilot Chat, når tallene kun findes som et skærmbillede fra et system, der ikke kan eksportere, eller som en tabel i en PDF. Sæt billedet ind sammen med prompten.",
+    tags: ["skærmbillede", "PDF", "tabel", "Excel", "billede", "tal", "superbruger"],
+    prompt: `Skriv tallene i billedet af som en tabel, jeg kan sætte ind i Excel.
+Brug de samme rækker og kolonner som i billedet.
+Kan du ikke læse et tal sikkert, så skriv ? i cellen, og list de usikre tal under tabellen.
+Regn ikke på noget endnu.
+
+[INDSÆT SKÆRMBILLEDET HER]`,
+    safety: "Tjek tre tal mod billedet, før du regner videre. Et godt svar gætter ikke – det skriver ? i cellen og siger, hvilket tal det ikke kunne læse. Excel kan også selv: Data → Fra billede.",
+    avoid: "Brug kun skærmbilleder, du må dele med Copilot efter Nykredits interne regler."
+  },
+  {
+    id: "p224",
+    example: "E07",
+    category: "Møder & samarbejde",
+    field: "På tværs",
+    type: "micro",
+    title: "Før mødet: et mødebrief på en halv side",
+    when: "Brug den i Copilot Chat før et møde. Vedhæft indkaldelsen og sidste referat – eller skriv / og vælg mødet og filerne.",
+    tags: ["mødebrief", "før mødet", "mødeforberedelse", "møder", "Copilot"],
+    prompt: `Lav et mødebrief på en halv side: Hvad skal vi beslutte, og hvad har ændret sig siden sidst?`,
+    safety: "Bed om et brief, ikke en opsummering: et brief fortæller, hvad mødet skal afgøre. Tjek det mod indkaldelsen og sidste referat."
+  },
+  {
+    id: "p225",
+    example: "E07",
+    category: "Møder & samarbejde",
+    field: "På tværs",
+    type: "micro",
+    title: "Under mødet: hvad har jeg misset?",
+    when: "Brug den i Copilot i Teams, mens mødet kører – når du kom for sent eller faldt fra et øjeblik. Kun du kan se svaret.",
+    tags: ["Teams", "under mødet", "møder", "transskription", "Copilot"],
+    prompt: `Hvad har jeg misset de sidste ti minutter?`,
+    safety: "Transskriptionen skal køre, før Copilot kan svare. Sig det til de andre, før du slår den til – og følg Nykredits interne regler for transskription af møder."
+  },
+  {
+    id: "p226",
+    example: "E09",
+    category: "Præsentation & visualisering",
+    field: "På tværs",
+    type: "quick",
+    title: "Lad Copilot skrive strukturen først",
+    when: "Brug den i Copilot Chat, før du åbner PowerPoint. Giv den tallene og dine noter, og læs så kun overskrifterne: siger de en pointe, eller er det bare et emne?",
+    tags: ["struktur", "slides", "præsentation", "overskrifter", "talenoter", "PowerPoint", "Copilot"],
+    prompt: `Lav strukturen til en præsentation på 6 slides til teammødet ud fra tallene og noterne nedenfor.
+For hver slide: en overskrift, der siger pointen, højst tre korte punkter og en talenote på to sætninger.
+Brug kun tal fra materialet.
+[INDSÆT TALLENE OG DINE NOTER HER]`,
+    safety: "Står der et tal, som ikke er i dit materiale, har Copilot fundet på det. Når strukturen står, bygger du den i PowerPoint med \"Fra struktur til slides i Nykredits PowerPoint-skabelon\"."
+  },
+  {
+    id: "p227",
+    example: "E09",
+    category: "Præsentation & visualisering",
+    field: "På tværs",
+    type: "quick",
+    title: "Slides som en webside – prøv selv derhjemme",
+    when: "Brug den derhjemme i Claude, hvis du vil prøve at lave slides på samme måde som dagens: som en webside, du retter med feedback, slide for slide. Det er ikke Copilot.",
+    tags: ["slides", "webside", "HTML", "Claude", "uden for Copilot", "præsentation"],
+    prompt: `Lav en præsentation på 8 slides som en webside (HTML) om [EMNE] til [MÅLGRUPPE]. Én pointe pr. slide, en enkel tegning på hver og korte talenoter. Brug farverne #001965 og #6FE4C1.`,
+    safety: "Første udkast kommer hurtigt – det er din feedback, slide for slide, der gør resten. Tjek indhold og tal selv.",
+    avoid: "Uden for Copilot: brug kun materiale, der må være offentligt, og følg Nykredits interne regler."
+  },
+  {
+    id: "p228",
+    category: "Præsentation & visualisering",
+    field: "På tværs",
+    type: "quick",
+    title: "Brug en tegning som din prompt",
+    when: "Brug den, når noget er nemmere at tegne end at forklare – en arbejdsgang, en bordplan eller en figur til en slide. Tegn i hånden, tag et billede med Copilot-appen (eller upload fotoet med plusset i Copilot Chat), og skriv prompten til billedet.",
+    tags: ["tegning", "skitse", "foto", "billede", "Copilot-appen", "figur", "diagram"],
+    prompt: `Billedet er en rå skitse af [HVAD DEN VISER]. Forklar først, hvad du tror hver streg, pil og tekst betyder. Skeln mellem det, der står tydeligt, og det, du gætter. Stil 5 spørgsmål.`,
+    safety: "Lad den først fortælle, hvad den tror, tegningen viser – det er billigere at rette en misforståelse i tekst end i et færdigt billede. Det, den ikke kan læse sikkert, skal blive ved med at være et spørgsmål.",
+    avoid: "Ingen kundenavne på tegningen."
   }
 ];
 
